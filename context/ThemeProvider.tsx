@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react"
 
-interface ThemeContextProps {
+interface ThemeContextType {
   mode: string;
   setMode: (mode: string) => void;
 }
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState('');
 
   const handleThemeChange = () => {
     if(
@@ -28,22 +28,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     handleThemeChange();
-    console.log("Mode" , mode);
+  }, [mode])
 
-  }, [mode]);
-
+  console.log('MODE, ', mode);
+  
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>
       {children}
     </ThemeContext.Provider>
-  );
+  )
 }
 
 export function useTheme() {
   const context = useContext(ThemeContext);
 
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+  if(context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider')
   }
+
   return context;
 }
