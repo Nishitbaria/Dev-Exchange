@@ -1,3 +1,4 @@
+import { count } from "console";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,22 +8,50 @@ export default function RightSidebar() {
     {
       _id: 1,
       title: "How to use React Query?",
+      count: 10,
     },
     {
       _id: 2,
       title: "How to use React Query?",
+      count: 10,
     },
     {
       _id: 3,
       title: "How to use React Query?",
+      count: 10,
     },
     {
       _id: 4,
       title: "How to use React Query?",
+      count: 10,
     },
     {
       _id: 5,
       title: "How to use React Query?",
+      count: 48,
+    },
+  ];
+
+  const popularTags = [
+    {
+      _id: 1,
+      tagname: "React",
+    },
+    {
+      _id: 2,
+      tagname: "Next.js",
+    },
+    {
+      _id: 3,
+      tagname: "React Query",
+    },
+    {
+      _id: 4,
+      tagname: "React Query",
+    },
+    {
+      _id: 5,
+      tagname: "React Query",
     },
   ];
 
@@ -40,18 +69,25 @@ export default function RightSidebar() {
               <p className="body-medium text-dark500_light700">
                 {question.title}
               </p>
-              <Image 
-              src="/assets/icons/chevron-right.svg"
-              alt="chevron-right"
-              className="invert-colors"
-              width={20}
-              height={20}
+              <Image
+                src="/assets/icons/chevron-right.svg"
+                alt="chevron-right"
+                className="invert-colors"
+                width={20}
+                height={20}
               />
             </Link>
           ))}
         </div>
       </div>
-      <div className="h3-bold text-dark200_light900 mt-16">Popular Tags</div>
+      <div className="h3-bold text-dark200_light900 mt-16">
+        <h3 className="h3-bold text-dark200_light900">Popular Tags </h3>
+    <div className="mt-7 flex flex-col gap-4">
+
+    </div>
+    
+    
+      </div>
     </section>
   );
 }
