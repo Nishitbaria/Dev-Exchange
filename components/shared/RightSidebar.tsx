@@ -2,6 +2,7 @@ import { count } from "console";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import RenderTag from "./RenderTag";
 
 export default function RightSidebar() {
   const hotQuestion = [
@@ -35,23 +36,28 @@ export default function RightSidebar() {
   const popularTags = [
     {
       _id: 1,
-      tagname: "React",
+      name: "React",
+      totalQuestion: 10,
     },
     {
       _id: 2,
-      tagname: "Next.js",
+      name: "Next.js",
+      totalQuestion: 10,
     },
     {
       _id: 3,
-      tagname: "React Query",
+      name: "React Query",
+      totalQuestion: 10,
     },
     {
       _id: 4,
-      tagname: "React Query",
+      name: "Node.js",
+      totalQuestion: 10,
     },
     {
       _id: 5,
-      tagname: "React Query",
+      name: "Javascript",
+      totalQuestion: 10,
     },
   ];
 
@@ -82,11 +88,17 @@ export default function RightSidebar() {
       </div>
       <div className="h3-bold text-dark200_light900 mt-16">
         <h3 className="h3-bold text-dark200_light900">Popular Tags </h3>
-    <div className="mt-7 flex flex-col gap-4">
-
-    </div>
-    
-    
+        <div className="mt-7 flex flex-col gap-4">
+          {popularTags.map((tag) => (
+            <RenderTag
+              key={tag._id}
+              _id={tag._id}
+              name={tag.name}
+              totalQuestion={tag.totalQuestion}
+              showCount
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
