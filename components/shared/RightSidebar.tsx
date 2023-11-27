@@ -1,4 +1,3 @@
-import { count } from "console";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,27 +6,27 @@ import RenderTag from "./RenderTag";
 export default function RightSidebar() {
   const hotQuestion = [
     {
-      _id: 1,
+      _id: '1',
       title: "How to use React Query?",
       count: 10,
     },
     {
-      _id: 2,
+      _id: "2",
       title: "How to use React Query?",
       count: 10,
     },
     {
-      _id: 3,
+      _id: "3",
       title: "How to use React Query?",
       count: 10,
     },
     {
-      _id: 4,
+      _id: "4",
       title: "How to use React Query?",
       count: 10,
     },
     {
-      _id: 5,
+      _id: "5",
       title: "How to use React Query?",
       count: 48,
     },
@@ -35,27 +34,27 @@ export default function RightSidebar() {
 
   const popularTags = [
     {
-      _id: 1,
+      _id: "1",
       name: "React",
       totalQuestion: 10,
     },
     {
-      _id: 2,
+      _id: "2",
       name: "Next.js",
       totalQuestion: 10,
     },
     {
-      _id: 3,
+      _id: "3",
       name: "React Query",
       totalQuestion: 10,
     },
     {
-      _id: 4,
+      _id: "4",
       name: "Node.js",
       totalQuestion: 10,
     },
     {
-      _id: 5,
+      _id: "5",
       name: "Javascript",
       totalQuestion: 10,
     },

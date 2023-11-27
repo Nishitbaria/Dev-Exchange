@@ -5,7 +5,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 
 const HomeFilters = () => {
-  const active = ''
+  const active = 'frequent'
 
   return (
     <div className="mt-10 hidden flex-wrap gap-3 md:flex">
