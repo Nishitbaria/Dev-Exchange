@@ -66,7 +66,7 @@ const QuestionCard = ({
           alt="user"
           value={author.name}
           title={` - asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author.id}`}
+          href={`/profile/${author._id}`}
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />

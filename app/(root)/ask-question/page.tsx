@@ -1,7 +1,13 @@
-import React from 'react'
+import Question from "@/components/forms/Question";
+import React from "react";
 
-export default function page() {
+export default function Page() {
   return (
-    <div> Ask the Question</div>
-  )
+    <div>
+      <h1 className="h1-bold text-dark100_light900"> Ask the Question</h1>
+      <div>
+        <Question />
+      </div>
+    </div>
+  );
 }
