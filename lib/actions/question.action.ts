@@ -3,9 +3,28 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tags.model";
+import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
+import { model } from "mongoose";
+import User from "@/database/user.model";
+import { revalidatePath } from "next/cache";
 
+export async function getQuestions(params: GetQuestionsParams) {
+  try {
+    connectToDatabase();
 
-export async function createQuestion(params: any) {
+    const questions = await Question.find({})
+      .populate({ path: "tags", model: Tag })
+      .populate({ path: "author", model: User })
+      .sort({ createdAt: -1 });
+
+    return { questions };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function createQuestion(params: CreateQuestionParams) {
   try {
     connectToDatabase();
 
@@ -38,5 +57,6 @@ export async function createQuestion(params: any) {
     // Create an interaction record for the user's ask_question action
 
     // Increment author's reputation by +5 for creating a question
+    revalidatePath(path);
   } catch (error) {}
 }
