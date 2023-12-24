@@ -22,7 +22,7 @@ import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
-import router from "next/router";
+// import router from "next/router";
 
 interface Props {
   mongoUserId: string;
@@ -52,7 +52,7 @@ export default function Question({ mongoUserId }: Props) {
     try {
       await createQuestion({
         title: values.title,
-        content: values.explanation,
+        content : values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
         path: pathname,
