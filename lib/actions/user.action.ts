@@ -13,7 +13,7 @@ import Question from "@/database/question.model";
 export async function getUserById(params: any) {
   try {
     connectToDatabase();
-    console.log(params);
+
     const { userId } = params;
 
     const user = await User.findOne({ clerkId: userId });
@@ -30,7 +30,7 @@ export async function createUser(userData: CreateUserParams) {
     connectToDatabase();
 
     const newUser = await User.create(userData);
-
+    console.log(newUser);
     return newUser;
   } catch (error) {
     console.log(error);
@@ -41,16 +41,13 @@ export async function createUser(userData: CreateUserParams) {
 export async function updateUser(params: UpdateUserParams) {
   try {
     connectToDatabase();
+
     const { clerkId, updateData, path } = params;
-    await User.findOneAndUpdate(
-      {
-        clerkId,
-      },
-      updateData,
-      {
-        new: true,
-      }
-    );
+
+    const updatedUser = await User.findOneAndUpdate({ clerkId }, updateData, {
+      new: true,
+    });
+    console.log(updatedUser);
 
     revalidatePath(path);
   } catch (error) {
@@ -78,11 +75,11 @@ export async function deleteUser(params: DeleteUserParams) {
     // const userQuestionIds = await Question.find({ author: user._id}).distinct('_id');
 
     // delete user questions
-    await Question.deleteMany({ author: clerkId });
+    await Question.deleteMany({ author: user._id });
 
     // TODO: delete user answers, comments, etc.
 
-    const deletedUser = await User.findByIdAndDelete(clerkId);
+    const deletedUser = await User.findByIdAndDelete(user._id);
 
     return deletedUser;
   } catch (error) {
