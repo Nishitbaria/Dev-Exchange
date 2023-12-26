@@ -1,12 +1,8 @@
-"use server";
+"use server"
 
 import User from "@/database/user.model";
-import { connectToDatabase } from "../mongoose";
-import {
-  CreateUserParams,
-  DeleteUserParams,
-  UpdateUserParams,
-} from "./shared.types";
+import { connectToDatabase } from "../mongoose"
+import { CreateUserParams, DeleteUserParams, UpdateUserParams } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
@@ -28,10 +24,9 @@ export async function getUserById(params: any) {
 export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
-    console.log("createUser")
-    console.log(userData);
+
     const newUser = await User.create(userData);
-    console.log(newUser);
+
     return newUser;
   } catch (error) {
     console.log(error);
@@ -45,10 +40,9 @@ export async function updateUser(params: UpdateUserParams) {
 
     const { clerkId, updateData, path } = params;
 
-    const updatedUser = await User.findOneAndUpdate({ clerkId }, updateData, {
+    await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
-    console.log(updatedUser);
 
     revalidatePath(path);
   } catch (error) {
@@ -65,8 +59,8 @@ export async function deleteUser(params: DeleteUserParams) {
 
     const user = await User.findOneAndDelete({ clerkId });
 
-    if (!user) {
-      throw new Error("User not found");
+    if(!user) {
+      throw new Error('User not found');
     }
 
     // Delete user from database

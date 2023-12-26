@@ -1,13 +1,9 @@
 "use client";
-
 import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useRouter, usePathname } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -18,22 +14,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "../ui/button";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
-// import router from "next/router";
+import { useRouter, usePathname } from "next/navigation";
+
+const type: any = "create";
 
 interface Props {
   mongoUserId: string;
 }
 
-const type: any = "create";
-
-export default function Question({ mongoUserId }: Props) {
+const Question = ({ mongoUserId }: Props) => {
+  const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -46,13 +45,15 @@ export default function Question({ mongoUserId }: Props) {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    createQuestion(values);
     setIsSubmitting(true);
 
     try {
+      // make an async call to your API -> create a question
+      // contain all form data
+
       await createQuestion({
         title: values.title,
-        content : values.explanation,
+        content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
         path: pathname,
@@ -64,8 +65,6 @@ export default function Question({ mongoUserId }: Props) {
     } finally {
       setIsSubmitting(false);
     }
-
-    console.log(values);
   }
 
   const handleInputKeyDown = (
@@ -103,13 +102,11 @@ export default function Question({ mongoUserId }: Props) {
     form.setValue("tags", newTags);
   };
 
-  const editorRef = useRef(null);
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" mt-4 flex w-full flex-col gap-10"
+        className="flex w-full flex-col gap-10"
       >
         <FormField
           control={form.control}
@@ -117,7 +114,7 @@ export default function Question({ mongoUserId }: Props) {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Question title <span className="text-primary-500">*</span>
+                Question Title <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Input
@@ -125,8 +122,8 @@ export default function Question({ mongoUserId }: Props) {
                   {...field}
                 />
               </FormControl>
-              <FormDescription className="body-regular mt-2 text-light-500">
-                Be specific and imagine you&re; asking a question to another
+              <FormDescription className="body-regular mt-2.5 text-light-500">
+                Be specific and imagine you&apos;re asking a question to another
                 person.
               </FormDescription>
               <FormMessage className="text-red-500" />
@@ -139,11 +136,10 @@ export default function Question({ mongoUserId }: Props) {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Details explanation of your problem.{" "}
+                Detailed explanation of your problem{" "}
                 <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                {/* ADd on Editor components here */}
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) => {
@@ -181,7 +177,7 @@ export default function Question({ mongoUserId }: Props) {
                   }}
                 />
               </FormControl>
-              <FormDescription className="body-regular mt-2 text-light-500">
+              <FormDescription className="body-regular mt-2.5 text-light-500">
                 Introduce the problem and expand on what you put in the title.
                 Minimum 20 characters.
               </FormDescription>
@@ -237,7 +233,7 @@ export default function Question({ mongoUserId }: Props) {
         />
         <Button
           type="submit"
-          className="primary-gradient w-fit !text-light-900 "
+          className="primary-gradient w-fit !text-light-900"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -249,4 +245,6 @@ export default function Question({ mongoUserId }: Props) {
       </form>
     </Form>
   );
-}
+};
+
+export default Question;
