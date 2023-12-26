@@ -67,6 +67,10 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       picture: image_url,
     });
+
+    console.log("Muje data nai mila");
+    console.log("Me yaha se call ho raha hu route,ts se");
+
     console.log({ mongoUser });
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
