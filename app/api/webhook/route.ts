@@ -8,7 +8,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
-
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
@@ -27,7 +26,6 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-
   // Get the body
   const payload = await req.json();
   const body = JSON.stringify(payload);
@@ -53,12 +51,10 @@ export async function POST(req: Request) {
 
   const eventType = evt.type;
 
-  console.log({ eventType });
-
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
-    console.log(evt.data);
+
     // Create a new user in your database
     const mongoUser = await createUser({
       clerkId: id,
@@ -68,13 +64,8 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
-    console.log("Muje data nai mila");
-    console.log("Me yaha se call ho raha hu route,ts se");
-
-    console.log({ mongoUser });
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
-
   if (eventType === "user.updated") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
@@ -93,7 +84,6 @@ export async function POST(req: Request) {
     console.log({ mongoUser });
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
-
   if (eventType === "user.deleted") {
     const { id } = evt.data;
 
