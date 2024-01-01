@@ -1,4 +1,6 @@
+import Answer from "@/components/forms/Answer";
 import ParseHTML from "@/components/shared/ParseHTML";
+import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/search/Metric";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -8,7 +10,7 @@ import React from "react";
 
 const Page = async ({ params, searchParams }) => {
   const result = await getQuestionById({ questionId: params.id });
-  console.log(result.author);
+
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -58,7 +60,19 @@ const Page = async ({ params, searchParams }) => {
         />
       </div>
 
-      <ParseHTML />
+      <ParseHTML data={result.content} />
+
+      <div className="mt-8 flex flex-wrap gap-2">
+        {result.tags.map((tag: any) => (
+          <RenderTag
+            key={tag._id}
+            _id={tag._id}
+            name={tag.name}
+            showCount={false}
+          />
+        ))}
+      </div>
+      <Answer />
     </>
   );
 };
