@@ -17,10 +17,19 @@ import { AnswersSchema } from "@/lib/validations";
 import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "@/context/ThemeProvider";
 import Image from "next/image";
+import { createAnswer } from "@/lib/actions/answer.action";
+import { usePathname } from "next/navigation";
 
-const Answer = () => {
+interface Props {
+  question: string;
+  questionId: string;
+  authorId: string;
+}
+
+const Answer = ({ question, questionId, authorId }: Props) => {
+  const pathname = usePathname();
   const { mode } = useTheme();
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.z.infer<typeof AnswersSchema>>({
     resolver: zodResolver(AnswersSchema),
     defaultValues: {
@@ -28,9 +37,26 @@ const Answer = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  const handleCreateAnswer = () => {
-    console.log("answer");
+  const handleCreateAnswer = async (value: z.infer<typeof AnswersSchema>) => {
+    try {
+      setIsSubmitting(true);
+      await createAnswer({
+        content: value.answer,
+        author: JSON.parse(authorId),
+        question: JSON.parse(questionId),
+        path: pathname,
+      });
+
+      form.reset();
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const editorRef = useRef(null);
