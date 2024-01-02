@@ -1,6 +1,5 @@
 "use server";
 
-import { connect } from "http2";
 import { ViewQuestionParams } from "./shared.types";
 import { connectToDatabase } from "../mongoose";
 import Question from "@/database/question.model";
