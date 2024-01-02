@@ -1,5 +1,6 @@
 "use client";
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
+import { ViewQuestion } from "@/lib/actions/interaction.action";
 import {
   downvoteQuestion,
   upvoteQuestion,
@@ -7,8 +8,10 @@ import {
 import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+
+import React, { useEffect } from "react";
+
 
 interface Props {
   type: string;
@@ -33,7 +36,15 @@ const Votes = ({
 }: Props) => {
   // TODO : add voting functionality
 
+  const router = useRouter();
   const pathname = usePathname();
+  useEffect(() => {
+    ViewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined,
+    });
+  }, [itemId, userId, pathname, router]);
+
   // const router = useRouter();
 
   const handleSave = async (action: string) => {
