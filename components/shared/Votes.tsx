@@ -24,6 +24,11 @@ const Votes = ({
   hasdownVoted,
   hasSaved,
 }: Props) => {
+  // TODO : add voting functionality
+
+  const handleSave = () => {};
+  const handleVote = () => {};
+
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
@@ -38,7 +43,9 @@ const Votes = ({
             width={18}
             height={18}
             className="cursor-pointer"
-            onClick={() => {}}
+            onClick={() => {
+              handleVote("upvote");
+            }}
           />
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
@@ -57,7 +64,9 @@ const Votes = ({
             width={18}
             height={18}
             className="cursor-pointer"
-            onClick={() => {}}
+            onClick={() => {
+              handleVote("downvote");
+            }}
           />
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
@@ -77,7 +86,7 @@ const Votes = ({
         width={18}
         height={18}
         className="cursor-pointer"
-        onClick={() => {}}
+        onClick={handleSave}
       />
     </div>
   );
