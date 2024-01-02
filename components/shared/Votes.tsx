@@ -37,7 +37,10 @@ const Votes = ({
 
   const handleSave = async (action: string) => {};
   const handleVote = async (action: string) => {
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
+
     if (action === "upvote") {
       if (type === "Question") {
         await upvoteQuestion({
@@ -47,19 +50,20 @@ const Votes = ({
           hasdownVoted,
           path: pathname,
         });
-      } else if (type === "") {
-        // TODO : Make action which is update upvote and downvote of answer
+      } else if (type === "Answer") {
         // await upvoteAnswer({
         //   answerId: JSON.parse(itemId),
         //   userId: JSON.parse(userId),
         //   hasupVoted,
         //   hasdownVoted,
         //   path: pathname,
-        // });
+        // })
       }
+
       // todo: show a toast
       return;
     }
+
     if (action === "downvote") {
       if (type === "Question") {
         await downvoteQuestion({
@@ -76,7 +80,7 @@ const Votes = ({
         //   hasupVoted,
         //   hasdownVoted,
         //   path: pathname,
-        // });
+        // })
       }
 
       // todo: show a toast

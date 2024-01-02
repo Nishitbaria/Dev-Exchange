@@ -90,41 +90,36 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 export async function upvoteQuestion(params: QuestionVoteParams) {
   try {
     connectToDatabase();
-    // get the following data from the params
+
     const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
 
     let updateQuery = {};
 
     if (hasupVoted) {
-      updateQuery = {
-        $pull: { upvotes: userId },
-      };
+      updateQuery = { $pull: { upvotes: userId } };
     } else if (hasdownVoted) {
       updateQuery = {
         $pull: { downvotes: userId },
         $push: { upvotes: userId },
       };
     } else {
-      updateQuery = {
-        $addToSet: { upvotes: userId }, // add the user to the upvotes array  if they haven't upvoted before
-      };
-
-      const question = await Question.findByIdAndUpdate(
-        questionId,
-        updateQuery,
-        { new: true }
-      );
-
-      if (!question) {
-        console.log("Question not found");
-        throw new Error("Question not found");
-      }
-      // increment the autho's reputation by +10 for upvoting a question
-
-      revalidatePath(path);
+      updateQuery = { $addToSet: { upvotes: userId } };
     }
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    // Increment author's reputation
+
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -137,7 +132,7 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     let updateQuery = {};
 
     if (hasdownVoted) {
-      updateQuery = { $pull: { downvote: userId } };
+      updateQuery = { $pull: { downvotes: userId } };
     } else if (hasupVoted) {
       updateQuery = {
         $pull: { upvotes: userId },
