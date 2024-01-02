@@ -10,7 +10,6 @@ import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { stringify } from "querystring";
 import React from "react";
 
 const Page = async ({ params, searchParams }) => {
