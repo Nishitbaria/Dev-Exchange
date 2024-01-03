@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import React from 'react'
 import { getJoinedDate } from '@/lib/utils'
 import ProfileLink from '@/components/shared/ProfileLink'
-
+import Stats from '@/components/shared/Stats'
 
 
 const Page = async ({ params, searchParams}: URLProps) => {
@@ -29,34 +29,34 @@ const Page = async ({ params, searchParams}: URLProps) => {
           />
 
           <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">{userInfo?.user.name}</h2>
-            <p className="paragraph-regular text-dark200_light800">@{userInfo?.user.username}</p>
+            <h2 className="h2-bold text-dark100_light900">{userInfo.user.name}</h2>
+            <p className="paragraph-regular text-dark200_light800">@{userInfo.user.username}</p>
 
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo?.user.portfolioWebsite && (
+              {userInfo.user.portfolioWebsite && (
                 <ProfileLink 
                   imgUrl="/assets/icons/link.svg"
-                  href={userInfo?.user.portfolioWebsite}
+                  href={userInfo.user.portfolioWebsite}
                   title="Portfolio"
                 />
               )}
 
-              {userInfo?.user.location && (
+              {userInfo.user.location && (
                 <ProfileLink 
                   imgUrl="/assets/icons/location.svg"
-                  title={userInfo?.user.location}
+                  title={userInfo.user.location}
                 />
               )}
 
                 <ProfileLink 
                   imgUrl="/assets/icons/calendar.svg"
-                  title={getJoinedDate(userInfo?.user.joinedAt)}
+                  title={getJoinedDate(userInfo.user.joinedAt)}
                 />
             </div>
 
-            {userInfo?.user.bio && (
+            {userInfo.user.bio && (
               <p className="paragraph-regular text-dark400_light800 mt-8">
-                {userInfo?.user.bio}
+                {userInfo.user.bio}
               </p>
             )}
           </div>
@@ -64,7 +64,7 @@ const Page = async ({ params, searchParams}: URLProps) => {
 
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
           <SignedIn>
-            {clerkId === userInfo?.user.clerkId && (
+            {clerkId === userInfo.user.clerkId && (
               <Link href="/profile/edit">
                 <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3">
                   Edit Profile
@@ -75,10 +75,10 @@ const Page = async ({ params, searchParams}: URLProps) => {
         </div>
       </div>
       
-      {/* <Stats 
-        totalQuestions={userInfo?.totalQuestions}
-        totalAnswers={userInfo?.totalAnswers}
-      /> */}
+      <Stats 
+        totalQuestions={userInfo.totalQuestions}
+        totalAnswers={userInfo.totalAnswers}
+      />
 
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">

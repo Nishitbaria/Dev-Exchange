@@ -191,10 +191,16 @@ export async function getUserInfo(params: GetUserByIdParams) {
       throw new Error("User not found");
     }
 
-    const totalQuestion = await Question.countDocuments({ author: user._id });
-    const totalAnswer = await Answer.countDocuments({ author: user._id });
-    return { user, totalQuestion, totalAnswer };
+    const totalQuestions = await Question.countDocuments({ author: user._id });
+    const totalAnswers = await Answer.countDocuments({ author: user._id });
+
+    return {
+      user,
+      totalQuestions,
+      totalAnswers,
+    };
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
