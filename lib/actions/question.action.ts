@@ -225,3 +225,42 @@ export async function editQuestion(params: EditQuestionParams) {
     console.log(error);
   }
 }
+
+export async function getHotQuestions() {
+  try {
+    connectToDatabase();
+    const hotQuestions = await Question.find({})
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .limit(5);
+
+    if (!hotQuestions) {
+      throw new Error("No hot questions found");
+    } else {
+      return hotQuestions;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getHotTags() {
+  try {
+    connectToDatabase();
+    const hotTags = await Tag.find({})
+      .sort({
+        questions: -1,
+      })
+      .limit(5);
+
+    if (!hotTags) {
+      throw new Error("No hot tags found");
+    } else {
+      return hotTags;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
