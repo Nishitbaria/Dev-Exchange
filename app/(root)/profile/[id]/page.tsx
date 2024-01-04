@@ -4,12 +4,14 @@ import { URLProps } from '@/types'
 import { SignedIn, auth } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs,  TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import React from 'react'
 import { getJoinedDate } from '@/lib/utils'
 import ProfileLink from '@/components/shared/ProfileLink'
 import Stats from '@/components/shared/Stats'
+import QuestionTab from '@/components/shared/QuestionTab'
+import AnswersTab from '@/components/shared/AnswersTab'
 
 
 const Page = async ({ params, searchParams}: URLProps) => {
@@ -87,18 +89,18 @@ const Page = async ({ params, searchParams}: URLProps) => {
             <TabsTrigger value="answers" className="tab">Answers</TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts">
-            {/* <QuestionTab 
+            <QuestionTab 
               searchParams={searchParams}
               userId={userInfo.user._id}
               clerkId={clerkId}
-            /> */}
+            />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            {/* <AnswersTab 
+            <AnswersTab 
               searchParams={searchParams}
               userId={userInfo.user._id}
               clerkId={clerkId}
-            /> */}
+            />
           </TabsContent>
         </Tabs>
       </div>
