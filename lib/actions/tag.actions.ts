@@ -37,7 +37,13 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
-    const { searchQuery, filter } = params;
+
+    // TODO : check the Page size is 20 or 10 i don't have any idea ?
+
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+
+    // calculate the number of post to skip based on the page number and page size
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Tag> = {};
 
@@ -65,9 +71,14 @@ export async function getAllTags(params: GetAllTagsParams) {
         break;
     }
 
-    const tags = await Tag.find(query).sort(sortOptions);
+    const tags = await Tag.find(query)
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort(sortOptions);
 
-    return { tags };
+    const isNext = (await Tag.countDocuments(query)) > skipAmount + tags.length;
+
+    return { tags, isNext };
   } catch (error) {
     console.log(error);
     throw error;
