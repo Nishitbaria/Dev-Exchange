@@ -38,47 +38,45 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
 
-    // TODO : check the Page size is 20 or 10 i don't have any idea ?
-
-    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
-
-    // calculate the number of post to skip based on the page number and page size
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
     const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Tag> = {};
 
-    if (searchQuery) {
-      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+    if(searchQuery) {
+      query.$or = [{name: { $regex: new RegExp(searchQuery, 'i')}}]
     }
 
     let sortOptions = {};
 
     switch (filter) {
       case "popular":
-        sortOptions = { questions: -1 };
+        sortOptions = { questions: -1 }
         break;
       case "recent":
-        sortOptions = { createdAt: -1 };
+        sortOptions = { createdAt: -1 }
         break;
       case "name":
-        sortOptions = { name: 1 };
+        sortOptions = { name: 1 }
         break;
       case "old":
-        sortOptions = { createdAt: 1 };
+        sortOptions = { createdAt: 1 }
         break;
-
+    
       default:
         break;
     }
 
+    const totalTags = await Tag.countDocuments(query);
+
     const tags = await Tag.find(query)
+      .sort(sortOptions)
       .skip(skipAmount)
-      .limit(pageSize)
-      .sort(sortOptions);
+      .limit(pageSize);
 
-    const isNext = (await Tag.countDocuments(query)) > skipAmount + tags.length;
+      const isNext = totalTags > skipAmount + tags.length;
 
-    return { tags, isNext };
+    return { tags, isNext }
   } catch (error) {
     console.log(error);
     throw error;
