@@ -14,11 +14,6 @@ const nextConfig = {
         protocol: "http",
         hostname: "*",
       },
-      {
-        rules: {
-          "no-console": "off",
-        },
-      },
     ],
   },
 };
