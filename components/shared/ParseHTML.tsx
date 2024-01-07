@@ -35,5 +35,5 @@ export default function ParseHTML({ data }: Props) {
     Prism.highlightAll();
   }, []);
 
-  return <div>{parse(data)}</div>;
+  return <div className="markdown w-full min-w-full ">{parse(data)}</div>;
 }
