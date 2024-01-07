@@ -11,7 +11,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 import React, { useEffect } from "react";
-
+import { toast } from "../ui/use-toast";
 
 interface Props {
   type: string;
@@ -56,7 +56,10 @@ const Votes = ({
   };
   const handleVote = async (action: string) => {
     if (!userId) {
-      return;
+      return toast({
+        title: "You need to login to vote",
+        description: "You need to Login to to perform this action",
+      });
     }
 
     if (action === "upvote") {
@@ -79,7 +82,10 @@ const Votes = ({
       }
 
       // todo: show a toast
-      return;
+      return toast({
+        title: `Upvote ${!hasupVoted ? "SuccessFully" : "Removed  "}   `,
+        variant: !hasupVoted ? "default" : "destructive",
+      });
     }
 
     if (action === "downvote") {
@@ -102,6 +108,10 @@ const Votes = ({
       }
 
       // todo: show a toast
+      return toast({
+        title: `downvote ${!hasdownVoted ? "SuccessFully" : "Removed  "}   `,
+        variant: !hasdownVoted ? "default" : "destructive",
+      });
     }
   };
 
@@ -159,7 +169,7 @@ const Votes = ({
           width={18}
           height={18}
           className="cursor-pointer"
-          onClick={handleSave}
+          onClick={handleSave} 
         />
       )}
     </div>
