@@ -1,7 +1,7 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Loading = () => {
   return (
@@ -13,7 +13,7 @@ const Loading = () => {
           <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
             Ask a Question
           </Button>
-        </Link> 
+        </Link>
       </div>
 
       <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
@@ -36,7 +36,7 @@ const Loading = () => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;
