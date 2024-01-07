@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/prism.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import { dark, neobrutalism } from '@clerk/themes';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,7 +43,8 @@ export default function RootLayout({
             elements: {
               formButtonPrimary: "primary-gradient",
               footerActionLink: "primary-text-gradient hover:text-primary-500",
-            },
+              baseTheme: [dark, neobrutalism]
+          },
           }}
         >
           <ThemeProvider>{children}</ThemeProvider>
