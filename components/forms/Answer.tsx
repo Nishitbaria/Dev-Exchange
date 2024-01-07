@@ -1,24 +1,23 @@
-/* eslint-disable no-unused-vars */
 "use client";
 
-import React, { useRef, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { AnswersSchema } from "@/lib/validations";
+} from "../ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
+import { useRef, useState } from "react";
 import { useTheme } from "@/context/ThemeProvider";
+import { Button } from "../ui/button";
 import Image from "next/image";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { AnswersSchema } from "@/lib/validations";
 
 interface Props {
   question: string;
@@ -28,28 +27,33 @@ interface Props {
 
 const Answer = ({ question, questionId, authorId }: Props) => {
   const pathname = usePathname();
-  const { mode } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useForm<z.z.infer<typeof AnswersSchema>>({
+  const [isSubmittingAI, setSetIsSubmittingAI] = useState(false);
+  const { mode } = useTheme();
+  const editorRef = useRef(null);
+  const form = useForm<z.infer<typeof AnswersSchema>>({
     resolver: zodResolver(AnswersSchema),
     defaultValues: {
       answer: "",
     },
   });
 
-  const handleCreateAnswer = async (value: z.infer<typeof AnswersSchema>) => {
+  const handleCreateAnswer = async (values: z.infer<typeof AnswersSchema>) => {
+    setIsSubmitting(true);
+
     try {
-      setIsSubmitting(true);
       await createAnswer({
-        content: value.answer,
+        content: values.answer,
         author: JSON.parse(authorId),
         question: JSON.parse(questionId),
         path: pathname,
       });
 
       form.reset();
+
       if (editorRef.current) {
         const editor = editorRef.current as any;
+
         editor.setContent("");
       }
     } catch (error) {
@@ -59,7 +63,38 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     }
   };
 
-  const editorRef = useRef(null);
+  const generateAIAnswer = async () => {
+    if (!authorId) return;
+
+    setSetIsSubmittingAI(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+        {
+          method: "POST",
+          body: JSON.stringify({ question }),
+        }
+      );
+
+      const aiAnswer = await response.json();
+
+      // Convert plain text to HTML format
+
+      const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
+
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent(formattedAnswer);
+      }
+
+      // Toast...
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSetIsSubmittingAI(false);
+    }
+  };
 
   return (
     <div>
@@ -70,22 +105,29 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
         <Button
           className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
-          onClick={() => {}}
+          onClick={generateAIAnswer}
         >
-          <Image
-            src="/assets/icons/stars.svg"
-            alt="star"
-            width={12}
-            height={12}
-            className="object-contain"
-          />
-          Generate an AI Answer
+          {isSubmittingAI ? (
+            <>Generating...</>
+          ) : (
+            <>
+              <Image
+                src="/assets/icons/stars.svg"
+                alt="star"
+                width={12}
+                height={12}
+                className="object-contain"
+              />
+              Generate AI Answer
+            </>
+          )}
         </Button>
       </div>
+
       <Form {...form}>
         <form
+          className="mt-6 flex w-full flex-col gap-10"
           onSubmit={form.handleSubmit(handleCreateAnswer)}
-          className="mt-8 flex w-full flex-col gap-10"
         >
           <FormField
             control={form.control}
@@ -132,16 +174,16 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                     }}
                   />
                 </FormControl>
-
                 <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
-          <div className="flex justify-end ">
+
+          <div className="flex justify-end">
             <Button
-              disabled={isSubmitting}
               type="submit"
               className="primary-gradient w-fit text-white"
+              disabled={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
