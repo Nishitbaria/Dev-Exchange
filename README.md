@@ -1,11 +1,11 @@
-# Dev Exchange
+# ⭐ Dev Exchange⭐
 
 
 ![image](https://github.com/Nishitbaria/Dev-Exchange/assets/85815172/154b1c51-8799-497c-96ab-5c7bad6c9e74)
 
 
 
-A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.
+A community-driven platform for asking and answering programming questions 💙. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.
 
 ## Features
 
@@ -54,10 +54,19 @@ A community-driven platform for asking and answering programming questions. Get 
 - Styling: CSS
 
 
-```
+
 ## Installation
 
 Follow these steps to set up the Dev Exchange project locally:
+
+
+### Using Docker (Recommended)
+
+1. Pull the Docker image from the Docker Hub:
+
+
+```   docker pull nishitbaria/devexchange ```
+
 
 ### Prerequisites
 
@@ -68,14 +77,14 @@ Before you begin, ensure you have the following installed on your machine:
 
 ### Clone the Repository
 
-```bash
+
 git clone https://github.com/Nishitbaria/Dev-Exchange.git
 cd Dev-Exchange
-```
+
 
 ### Install Dependencies
 
-```bash
+```
 npm install
 ```
 
@@ -122,7 +131,3 @@ npm start
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to access the production build locally.
-
-```
-
-Make sure to replace placeholder values such as URLs and connection strings with your actual configurations. Additionally, consider providing information on any other specific setup or configuration steps if required for your project.
