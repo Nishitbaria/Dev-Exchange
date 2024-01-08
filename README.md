@@ -53,9 +53,8 @@ A community-driven platform for asking and answering programming questions. Get 
 - Authentication: Clerk
 - Styling: CSS
 
-Certainly! Here are the installation steps you can add to your README:
 
-```markdown
+```
 ## Installation
 
 Follow these steps to set up the Dev Exchange project locally:
