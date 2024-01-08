@@ -39,7 +39,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     imgURL: "/assets/icons/ai.png",
-    route: "/ai",
+    route: "/chat",
     label: "Power by ai",
   },
 ];
