@@ -62,7 +62,7 @@ Follow these steps to set up the Dev Exchange project locally:
 
 ### Using Docker (Recommended)
 
-1. Pull the Docker image from the Docker Hub:
+1. Pull the [Docker](https://hub.docker.com/r/nishitbaria/devexchange) image from the Docker Hub:
 
 
 ```   docker pull nishitbaria/devexchange ```
