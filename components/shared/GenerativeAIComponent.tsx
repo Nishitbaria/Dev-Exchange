@@ -107,7 +107,7 @@ export default function GenerativeAIComponent() {
 
   return (
     <>
-      <div className="mt-16 flex-1  space-y-6 overflow-y-auto rounded-xl bg-black  p-4 text-sm leading-6 text-slate-900 shadow-sm dark:text-slate-300 sm:text-base sm:leading-7">
+      <div className="background-light700_dark400 mt-16  flex-1 space-y-6 overflow-y-auto rounded-xl p-4 text-sm leading-6 text-slate-900 shadow-sm dark:text-slate-300 sm:text-base sm:leading-7">
         {messages.map((msg, index) => (
           // @eslint-ign
           <div
@@ -172,7 +172,7 @@ export default function GenerativeAIComponent() {
         {/* New chat button */}
         <button
           onClick={startNewChat}
-          className="mx-auto mb-4 mt-2 w-full rounded-md bg-blue-700 px-2 py-1 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+          className="mx-auto mb-4 mt-2 w-full rounded-md bg-primary-500 px-2 py-1 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
         >
           Start New Chat
         </button>
@@ -196,7 +196,7 @@ export default function GenerativeAIComponent() {
             </button>
             <textarea
               id="chat-input"
-              className="block w-full resize-none rounded-xl border-none bg-gray-700 p-4 pl-10 pr-20 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-slate-200 dark:placeholder:text-slate-400 dark:focus:ring-blue-600 sm:text-base"
+              className="background-light700_dark400 text-dark300_light700 block w-full resize-none  rounded-xl border-none p-4 pl-10  pr-20 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600  dark:placeholder:text-slate-400 dark:focus:ring-blue-600 sm:text-base"
               placeholder="Enter your prompt"
               rows={1}
               value={inputText}
@@ -207,7 +207,7 @@ export default function GenerativeAIComponent() {
             ></textarea>
             <button
               type="submit"
-              className="absolute bottom-2 right-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:text-base"
+              className="absolute bottom-2 right-2.5 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:text-base"
             >
               Send <span className="sr-only">Send message</span>
             </button>
