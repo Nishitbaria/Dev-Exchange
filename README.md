@@ -53,12 +53,77 @@ A community-driven platform for asking and answering programming questions. Get 
 - Authentication: Clerk
 - Styling: CSS
 
+Certainly! Here are the installation steps you can add to your README:
+
+```markdown
 ## Installation
 
-To set up the Dev Exchange project locally, follow these steps:
+Follow these steps to set up the Dev Exchange project locally:
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/): Make sure to install Node.js, which includes npm (Node Package Manager).
+- [MongoDB](https://www.mongodb.com/): Set up a MongoDB database and obtain the connection URL.
+
+### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/dev-exchange.git
-cd dev-exchange
+git clone https://github.com/Nishitbaria/Dev-Exchange.git
+cd Dev-Exchange
+```
+
+### Install Dependencies
+
+```bash
 npm install
+```
+
+### Configuration
+
+1. Create a `.env.local` file in the root of the project.
+2. Add the following environment variables and replace the values with your own:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_PUBLIC_TINY_EDITOR_API_KEY=
+NEXT_CLERK_WEBHOOK_SECRET=whsec_erJXNtiEmSyU6XyobojZnp7fA2otaDtD
+MONGODB_URL=
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000/
+OPENAI_API_KEY=
+NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY=
+```
+
+### Start the Development Server
+
+```bash
+npm run dev
+```
+
+The application should now be running locally. Visit [http://localhost:3000](http://localhost:3000) in your web browser to access Dev Exchange.
+
+### Build for Production
+
+To build the project for production, use the following command:
+
+```bash
+npm run build
+```
+
+### Start the Production Server
+
+```bash
 npm start
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to access the production build locally.
+
+```
+
+Make sure to replace placeholder values such as URLs and connection strings with your actual configurations. Additionally, consider providing information on any other specific setup or configuration steps if required for your project.
