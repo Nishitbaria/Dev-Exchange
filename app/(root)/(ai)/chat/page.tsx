@@ -10,9 +10,13 @@ export default function page() {
         {/* Tital Chat */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white sm:text-4xl">
-            Welcome to Dev Exchange AI
+            Welcome to{" "}
+            <span className="text-blue-500 dark:text-blue-500">
+              {" "}
+              Dev Exchange AI{" "}
+            </span>
           </h1>
-          <p className="mt-3 text-gray-600 dark:text-gray-400">
+          <p className="mt-3 text-gray-600 underline dark:text-gray-400">
             Your AI-powered copilot for the web
           </p>
         </div>

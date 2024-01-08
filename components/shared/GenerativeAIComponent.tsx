@@ -107,6 +107,7 @@ export default function GenerativeAIComponent() {
 
   return (
     <>
+      {/* respone components */}
       <div className="background-light700_dark400 mt-16  flex-1 space-y-6 overflow-y-auto rounded-xl p-4 text-sm leading-6 text-slate-900 shadow-sm dark:text-slate-300 sm:text-base sm:leading-7">
         {messages.map((msg, index) => (
           // @eslint-ign
@@ -131,6 +132,7 @@ export default function GenerativeAIComponent() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 whitespace-pre-wrap text-sm text-gray-800 dark:text-white">
                   {renderMarkdown(msg.text)}
+                  {msg.text.length}
                 </div>
 
                 {/* Copy message Part */}
