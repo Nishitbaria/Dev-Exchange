@@ -15,7 +15,7 @@ export default function GenerativeAIComponent() {
   // eslint-disable-next-line no-unused-vars
   const [isCodeCopied, setIsCodeCopied] = useState<boolean>(false);
 
-  const API_KEY = "AIzaSyABfESLHqpjqBdZFlt3zC4Ypd0dDL7_aSU";
+  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY || "";
   const genAI = new GoogleGenerativeAI(API_KEY);
 
   const isCodeSnippet = (text: string): boolean => {
@@ -132,7 +132,6 @@ export default function GenerativeAIComponent() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 whitespace-pre-wrap text-sm text-gray-800 dark:text-white">
                   {renderMarkdown(msg.text)}
-                  {msg.text.length}
                 </div>
 
                 {/* Copy message Part */}
