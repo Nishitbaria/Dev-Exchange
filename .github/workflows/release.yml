@@ -1,4 +1,5 @@
 name: Releases
+
 on:
   push:
     branches:
@@ -26,7 +27,7 @@ jobs:
 
       # switch to the temporary branch
       - name: switch to new branch
-        run: git checkout release-from-${{ github.sha }
+        run: git checkout release-from-${{ github.sha }}
 
       # create release info and push it upstream
       - name: conventional Changelog Action
