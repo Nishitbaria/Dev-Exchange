@@ -7,17 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    develop:
-      watch:
-        - path: ./package.json
-          action: rebuild
-        - path: ./next.config.js
-          action: rebuild
-        - path: ./package-lock.json
-          action: rebuild
-        - path: .
-          target: /app
-          action: sync
     environment:
       DB_URL: mongodb+srv://sujata:rnZzJjIDr3bIDymV@cluster0.hnn88vs.mongodb.net/
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ZnVuLWJvYmNhdC0zNC5jbGVyay5hY2NvdW50cy5kZXYk
