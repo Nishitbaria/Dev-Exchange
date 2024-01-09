@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   changelog:
-    if: github.repository == 'Nishitbaria/devexchange'
+    if: github.repository == 'Nishitbaria/Dev-Exchange'
     runs-on: ubuntu-latest
 
     steps:
