@@ -1,4 +1,4 @@
-name: auto-deploy-on-dockerhub
+name: ci
 
 on:
   push:
