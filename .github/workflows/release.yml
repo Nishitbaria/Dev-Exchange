@@ -26,16 +26,7 @@ jobs:
 
       # switch to the temporary branch
       - name: switch to new branch
-        run: git checkout release-from-${{ github.sha }}
-
-      # update app config with version
-      - name: get-npm-version
-        id: package-version
-        run: |
-          LF_VERSION=$(cat package.json | jq -r '.version')
-          echo "current-version=$LF_VERSION" >> "$GITHUB_OUTPUT"
-      - name: update app config
-        run: sed -i 's/0.0.0/${{ steps.package-version.outputs.current-version}}/g' config/app.json
+        run: git checkout release-from-${{ github.sha }
 
       # create release info and push it upstream
       - name: conventional Changelog Action
