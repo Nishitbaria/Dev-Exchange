@@ -29,16 +29,6 @@ jobs:
       - name: switch to new branch
         run: git checkout release-from-${{ github.sha }}
 
-      # create release info and push it upstream
-      - name: conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: "./package.json,./package-lock.json,./config/app.json"
-          git-branch: "release-from-${{ github.sha }}"
-          skip-git-pull: true
-
       # create PR using GitHub CLI
       - name: create PR with release info
         if: steps.changelog.outputs.skipped == 'false'
