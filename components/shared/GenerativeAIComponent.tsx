@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable tailwindcss/no-custom-classname */
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -6,10 +8,17 @@ import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 
-export default function GenerativeAIComponent() {
+interface Props {
+  imgurl: any;
+}
+
+export default function GenerativeAIComponent({ imgurl }: Props) {
   const [messages, setMessages] = useState<{ text: string; user: string }[]>(
     []
   );
+
+  console.log("imgurl", imgurl);
+
   const [inputText, setInputText] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
   // eslint-disable-next-line no-unused-vars
@@ -120,9 +129,7 @@ export default function GenerativeAIComponent() {
             {/* Image of user */}
             <Image
               className={`mr-2 flex h-8 w-8 rounded-full sm:mr-4`}
-              src={`https://dummyimage.com/128x128/${
-                msg.user === "user" ? "363536" : "354ea1"
-              }/ffffff&text=${msg.user.toUpperCase()}`}
+              src={msg.user === "user" ? imgurl : 'https://cdn-icons-png.flaticon.com/512/5611/5611037.png'} // Use the actual URL for AI avatar here
               alt={`${msg.user} Avatar`}
               width={20}
               height={20}

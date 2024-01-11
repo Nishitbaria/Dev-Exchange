@@ -1,9 +1,15 @@
-"use client";
-
 import GenerativeAIComponent from "@/components/shared/GenerativeAIComponent";
+import { getUserInfo } from "@/lib/actions/user.action";
+import { URLProps } from "@/types";
+import { auth } from "@clerk/nextjs";
 import React from "react";
 
-export default function page() {
+const Page = async ({ params, searchParams }: URLProps) => {
+  const { userId: clerkId } = auth();
+  const userInfo = await getUserInfo({ userId: params.id });
+
+  console.log("userInfo", userInfo.user);
+
   return (
     <div className="relative h-[5000px]">
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
@@ -22,8 +28,10 @@ export default function page() {
         </div>
 
         {/* Prompt Messages */}
-        <GenerativeAIComponent />
+        <GenerativeAIComponent imgurl={userInfo?.user.picture} />
       </div>
     </div>
   );
-}
+};
+
+export default Page;

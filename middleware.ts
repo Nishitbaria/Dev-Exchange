@@ -11,6 +11,8 @@ export default authMiddleware({
     "/tags",
     "/tags/:tag",
     "/profile/:id",
+    "/chat",
+    "/chat/:id",
     "community",
     "jobs",
   ],

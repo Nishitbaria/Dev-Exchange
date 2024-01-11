@@ -26,6 +26,12 @@ const LeftSidebar = () => {
             } else {
               return null;
             }
+          } else if (item.route === "/chat") {
+            if (userId) {
+              item.route = `${item.route}/${userId}`;
+            } else {
+              return null;
+            }
           }
 
           return (
