@@ -4,10 +4,7 @@ import { URLProps } from "@/types";
 import React from "react";
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  
   const userInfo = await getUserInfo({ userId: params.id });
-
-  console.log("userInfo", userInfo.user);
 
   return (
     <div className="relative h-[5000px]">

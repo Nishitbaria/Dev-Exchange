@@ -1,12 +1,11 @@
 "use client";
-
-/* eslint-disable tailwindcss/no-custom-classname */
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
+import axios from "axios";
 
 interface Props {
   imgurl: any;
@@ -16,12 +15,8 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
   const [messages, setMessages] = useState<{ text: string; user: string }[]>(
     []
   );
-
-  console.log("imgurl", imgurl);
-
   const [inputText, setInputText] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  // eslint-disable-next-line no-unused-vars
   const [isCodeCopied, setIsCodeCopied] = useState<boolean>(false);
 
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY || "";
@@ -34,10 +29,7 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
   const formatMessage = (text: string): string => {
     return isCodeSnippet(text) ? text : `${text}`;
   };
-
   // @ts-ignore
-
-  // eslint-disable-next-line no-undef
   const renderMarkdown = (text: string): JSX.Element => {
     const isCode = isCodeSnippet(text);
 
@@ -58,7 +50,11 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
 
   const generateContent = async (): Promise<void> => {
     // Show user's message
-    setMessages([...messages, { text: inputText, user: "user" }]);
+    const userMessage = { text: inputText, user: "user" };
+    setMessages([...messages, userMessage]);
+
+    // Save user's message to MongoDB
+    await saveMessageToMongoDB(userMessage);
 
     // Show typing indicator
     setIsTyping(true);
@@ -76,10 +72,11 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
       );
       if (typingIndicatorIndex !== -1) {
         const formattedText = formatMessage(text);
-        updatedMessages[typingIndicatorIndex] = {
-          text: formattedText,
-          user: "ai",
-        };
+        const aiMessage = { text: formattedText, user: "ai" };
+        updatedMessages[typingIndicatorIndex] = aiMessage;
+
+        // Save AI's response to MongoDB
+        saveMessageToMongoDB(aiMessage);
       }
       return updatedMessages;
     });
@@ -96,6 +93,54 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
 
     // Clear the input
     setInputText("");
+  };
+
+  // const saveMessageToMongoDB = async (message: {
+  //   text: string;
+  //   user: string;
+  // }): Promise<void> => {
+  //   try {
+  //     const apiUrl = await fetch(
+  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/saveMessage`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(message),
+  //       }
+  //     );
+  //     console.log("API URL:", apiUrl);
+  //     // console.log("Message sent successfully");
+  //   } catch (error) {
+  //     console.error("Error saving message to MongoDB:", error);
+  //   }
+  // };
+
+  const saveMessageToMongoDB = async (message: {
+    text: string;
+    user: string;
+  }): Promise<void> => {
+    console.log(message, message.user, message.text);
+    try {
+      console.log("Message:", message);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/saveMessage`,
+        {
+          text: message.text,
+          user: message.user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Response:", response);
+      console.log("Message sent successfully");
+    } catch (error) {
+      console.error("Error saving message to MongoDB:", error);
+    }
   };
 
   useEffect(() => {
@@ -116,20 +161,21 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
 
   return (
     <>
-      {/* respone components */}
+      {/* response components */}
       <div className="background-light700_dark400 mt-16  flex-1 space-y-6 overflow-y-auto rounded-xl p-4 text-sm leading-6 text-slate-900 shadow-sm dark:text-slate-300 sm:text-base sm:leading-7">
         {messages.map((msg, index) => (
-          // @eslint-ign
           <div
             key={index}
-            className={`flex items-center gap-2 ${
-              msg.user === "user" ? "start" : "end"
-            }`}
+            className={`flex items-center gap-2 ${msg.user === "user" ? "start" : "end"}`}
           >
             {/* Image of user */}
             <Image
               className={`mr-2 flex h-8 w-8 rounded-full sm:mr-4`}
-              src={msg.user === "user" ? imgurl : 'https://cdn-icons-png.flaticon.com/512/5611/5611037.png'} // Use the actual URL for AI avatar here
+              src={
+                msg.user === "user"
+                  ? imgurl
+                  : "https://cdn-icons-png.flaticon.com/512/5611/5611037.png"
+              } // Use the actual URL for AI avatar here
               alt={`${msg.user} Avatar`}
               width={20}
               height={20}
@@ -140,7 +186,6 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
                 <div className="flex items-center gap-2 whitespace-pre-wrap text-sm text-gray-800 dark:text-white">
                   {renderMarkdown(msg.text)}
                 </div>
-
                 {/* Copy message Part */}
                 <div className="mb-2 flex w-full flex-row justify-end gap-x-2 text-slate-500">
                   {msg.user === "ai" && (

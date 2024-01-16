@@ -76,7 +76,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
           body: JSON.stringify({ question }),
         }
       );
-
+      console.log("response", response);
       const aiAnswer = await response.json();
 
       // Convert plain text to HTML format
