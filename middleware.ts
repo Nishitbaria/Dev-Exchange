@@ -11,7 +11,6 @@ export default authMiddleware({
     "/tags/:tag",
     "/profile/:id",
     "community",
-    "jobs",
   ],
   ignoredRoutes: [
     "/api/saveMessage",

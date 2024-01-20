@@ -3,11 +3,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 // eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import "../styles/prism.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import { dark, neobrutalism } from '@clerk/themes';
+import { dark, neobrutalism } from "@clerk/themes";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,11 +44,14 @@ export default function RootLayout({
             elements: {
               formButtonPrimary: "primary-gradient",
               footerActionLink: "primary-text-gradient hover:text-primary-500",
-              baseTheme: [dark, neobrutalism]
-          },
+              baseTheme: [dark, neobrutalism],
+            },
           }}
         >
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            <Analytics />
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>

@@ -21,13 +21,17 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 
     if (!user) throw new Error("User not found");
 
-    // Find interactions for the user and group by tags...
-    // Interaction...
+    const userQuestions = await Question.find({ author: userId })
+      .sort({ views: -1, upvotes: -1 })
+      .populate("tags", " _id name");
 
-    return [
-      { _id: "1", name: "tag" },
-      { _id: "2", name: "tag2" },
-    ];
+    const allTags = userQuestions.flatMap((question) => {
+      return question.tags.map((tag: any) => {
+        return tag;
+      });
+    });
+
+    return allTags;
   } catch (error) {
     console.log(error);
     throw error;
@@ -43,26 +47,26 @@ export async function getAllTags(params: GetAllTagsParams) {
 
     const query: FilterQuery<typeof Tag> = {};
 
-    if(searchQuery) {
-      query.$or = [{name: { $regex: new RegExp(searchQuery, 'i')}}]
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
     }
 
     let sortOptions = {};
 
     switch (filter) {
       case "popular":
-        sortOptions = { questions: -1 }
+        sortOptions = { questions: -1 };
         break;
       case "recent":
-        sortOptions = { createdAt: -1 }
+        sortOptions = { createdAt: -1 };
         break;
       case "name":
-        sortOptions = { name: 1 }
+        sortOptions = { name: 1 };
         break;
       case "old":
-        sortOptions = { createdAt: 1 }
+        sortOptions = { createdAt: 1 };
         break;
-    
+
       default:
         break;
     }
@@ -74,9 +78,9 @@ export async function getAllTags(params: GetAllTagsParams) {
       .skip(skipAmount)
       .limit(pageSize);
 
-      const isNext = totalTags > skipAmount + tags.length;
+    const isNext = totalTags > skipAmount + tags.length;
 
-    return { tags, isNext }
+    return { tags, isNext };
   } catch (error) {
     console.log(error);
     throw error;
