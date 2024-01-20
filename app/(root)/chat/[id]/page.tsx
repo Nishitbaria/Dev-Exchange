@@ -24,7 +24,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
         </div>
 
         {/* Prompt Messages */}
-        <GenerativeAIComponent imgurl={userInfo?.user.picture} />
+        <GenerativeAIComponent
+          imgurl={userInfo?.user.picture}
+          userId={params.id}
+        />
       </div>
     </div>
   );

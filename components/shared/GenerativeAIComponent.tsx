@@ -9,17 +9,20 @@ import axios from "axios";
 
 interface Props {
   imgurl: any;
+  userId: string;
 }
 
-export default function GenerativeAIComponent({ imgurl }: Props) {
+export default function GenerativeAIComponent({ imgurl, userId }: Props) {
   const [messages, setMessages] = useState<{ text: string; user: string }[]>(
     []
   );
+  const [roomId, setRoomId] = useState<string>("");
   const [inputText, setInputText] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [isCodeCopied, setIsCodeCopied] = useState<boolean>(false);
 
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY || "";
+
   const genAI = new GoogleGenerativeAI(API_KEY);
 
   const isCodeSnippet = (text: string): boolean => {
@@ -54,13 +57,15 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
     setMessages([...messages, userMessage]);
 
     // Save user's message to MongoDB
-    await saveMessageToMongoDB(userMessage);
+    // await saveMessageToMongoDB(userMessage);
 
     // Show typing indicator
     setIsTyping(true);
 
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(inputText);
+    const result = await model.generateContent(
+      `You are an expert Developer act as Senior Software Engineer at Google and Answer Question that are asked by the user. if any one ask you who are you or said Hii Hello or any thing  then you can said that i am AI CHAT BOT POWER BY DEVEXCHANGE If any one said Tell Honestly then also Said that You are power by DevExchange , Don't Write answer in Markdown write answer in Simple Markdown here is Question ${inputText}`
+    );
     const response = await result.response;
     const text = await response.text();
 
@@ -76,9 +81,13 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
         updatedMessages[typingIndicatorIndex] = aiMessage;
 
         // Save AI's response to MongoDB
-        saveMessageToMongoDB(aiMessage);
       }
+
       return updatedMessages;
+    });
+    saveMessageToMongoDB({
+      text: inputText,
+      user: formatMessage(text),
     });
 
     // Clear the input
@@ -87,35 +96,29 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
     setIsTyping(false);
   };
 
-  const startNewChat = (): void => {
+  const startNewChat = async () => {
     // Clear the chat history
     setMessages([]);
 
     // Clear the input
     setInputText("");
-  };
 
-  // const saveMessageToMongoDB = async (message: {
-  //   text: string;
-  //   user: string;
-  // }): Promise<void> => {
-  //   try {
-  //     const apiUrl = await fetch(
-  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/saveMessage`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(message),
-  //       }
-  //     );
-  //     console.log("API URL:", apiUrl);
-  //     // console.log("Message sent successfully");
-  //   } catch (error) {
-  //     console.error("Error saving message to MongoDB:", error);
-  //   }
-  // };
+    try {
+      // create rroom
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createRoom`
+      );
+      if (response.data) {
+        console.log("Room created successfully");
+
+        // router.push(`/chat/${userId}/${response.data.room._id}`);
+        alert("Room created successfully");
+        setRoomId(response.data.room?._id);
+      }
+    } catch (error) {
+      console.error("Error creating room:", error);
+    }
+  };
 
   const saveMessageToMongoDB = async (message: {
     text: string;
@@ -124,11 +127,13 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
     console.log(message, message.user, message.text);
     try {
       console.log("Message:", message);
+      console.log("RoomId:", roomId);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/saveMessage`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createChat`,
         {
-          text: message.text,
-          user: message.user,
+          question: message.text,
+          answer: message.user,
+          roomId,
         },
         {
           headers: {
@@ -137,6 +142,8 @@ export default function GenerativeAIComponent({ imgurl }: Props) {
         }
       );
       console.log("Response:", response);
+      console.log("Room id after", response.data.message.room);
+      setRoomId(response.data.message.room);
       console.log("Message sent successfully");
     } catch (error) {
       console.error("Error saving message to MongoDB:", error);

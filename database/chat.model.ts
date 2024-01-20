@@ -1,15 +1,18 @@
 import { Schema, models, model, Document } from "mongoose";
 
 export interface IChatMessage extends Document {
-  text: string;
-  user: string;
-  createdAt: Date;
+  question: string;
+  answer: string;
+  room: Schema.Types.ObjectId;
 }
 
 const ChatMessageSchema = new Schema({
-  text: { type: String, required: true },
-  user: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  question: String,
+  answer: String,
+  room: {
+    type: Schema.Types.ObjectId,
+    ref: "Room",
+  },
 });
 
 const ChatMessage =

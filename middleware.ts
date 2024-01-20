@@ -13,7 +13,13 @@ export default authMiddleware({
     "community",
     "jobs",
   ],
-  ignoredRoutes: ["/api/saveMessage", "api/webhook", "api/chatgpt"],
+  ignoredRoutes: [
+    "/api/saveMessage",
+    "api/webhook",
+    "api/chatgpt",
+    "/api/createRoom",
+    "/api/createChat",
+  ],
 });
 
 export const config = {
