@@ -14,7 +14,7 @@ export default authMiddleware({
   ],
   ignoredRoutes: [
     "/api/saveMessage",
-    "api/webhook",
+    "/api/webhook",
     "api/chatgpt",
     "/api/createRoom",
     "/api/createChat",
