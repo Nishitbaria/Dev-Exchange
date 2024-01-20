@@ -1,6 +1,5 @@
 import Room from "@/database/room.model";
 import { connectToDatabase } from "../mongoose";
-import { Schema } from "mongoose";
 
 export async function getALLRooms() {
   try {
