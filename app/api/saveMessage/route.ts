@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(res: Request) {
   const { text, user } = await res.json();
-  console.log("..............................................");
-  console.log("text", text);
-  console.log("user", user);
+
   try {
     const message = await saveChatMessage(text, user);
     console.log(message);

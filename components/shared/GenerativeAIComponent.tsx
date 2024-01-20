@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -32,7 +33,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
   const formatMessage = (text: string): string => {
     return isCodeSnippet(text) ? text : `${text}`;
   };
-  // @ts-ignore
+  // eslint-disable-next-line no-undef
   const renderMarkdown = (text: string): JSX.Element => {
     const isCode = isCodeSnippet(text);
 

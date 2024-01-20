@@ -33,10 +33,10 @@ export async function getChat(params: any) {
 //   roomId: string;
 // }
 
-export async function createChat(
+export async function saveChatMessage(
   question: string,
   answer: string,
-  roomId: string
+  roomId?: string
 ) {
   try {
     connectToDatabase();
