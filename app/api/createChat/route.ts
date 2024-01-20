@@ -1,11 +1,11 @@
-import { createChat, getChat } from "@/lib/actions/chat.action";
+import { saveChatMessage, getChat } from "@/lib/actions/chat.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
     const { question, answer, roomId } = await req.json();
     console.log("answer", answer);
-    const message = await createChat(question, answer, roomId);
+    const message = await saveChatMessage(question, answer, roomId);
 
     if (!message) throw new Error("No message found");
 
