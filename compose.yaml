@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -8,16 +8,16 @@ services:
     ports:
       - 3000:3000
     environment:
-      DB_URL: mongodb+srv://sujata:rnZzJjIDr3bIDymV@cluster0.hnn88vs.mongodb.net/
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ZnVuLWJvYmNhdC0zNC5jbGVyay5hY2NvdW50cy5kZXYk
-      CLERK_SECRET_KEY: sk_test_7mxO3lhO24miguurNMMjsL6MqKJ6ubbJ8YxNS9p11o
+      DB_URL:
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+      CLERK_SECRET_KEY:
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
       NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
       NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
       NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
-      NEXT_PUBLIC_TINY_EDITOR_API_KEY: jfig36gb75of6y63mfwnswoe3kndusuuk3xz2v4dxajousyw
+      NEXT_PUBLIC_TINY_EDITOR_API_KEY:
       NEXT_CLERK_WEBHOOK_SECRET: whsec_erJXNtiEmSyU6XyobojZnp7fA2otaDtD
-      MONGODB_URL: mongodb+srv://nishitbaria:123123123@cluster0.hxp2m93.mongodb.net/?retryWrites=true&w=majority
+      MONGODB_URL:
       NEXT_PUBLIC_SERVER_URL: http://localhost:3000/
-      OPENAI_API_KEY: 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
-      NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY: AIzaSyABfESLHqpjqBdZFlt3zC4Ypd0dDL7_aSU
+      OPENAI_API_KEY:
+      NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY:
