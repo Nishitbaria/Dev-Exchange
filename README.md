@@ -179,7 +179,7 @@ _View the list of all contributors [here](https://github.com/Nishitbaria/Dev-Exc
     </td>
     <td> 
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg"/> <br> 
-LinksHub is licensed under the terms of the MIT License. check out <a href="./LICENSE">LICENSE</a> for details. <img width=2300/>
+Dev-Exchange is licensed under the terms of the MIT License. check out <a href="./LICENSE">LICENSE</a> for details. <img width=2300/>
     </td>
   </tr>
 </table>
