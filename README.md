@@ -1,59 +1,55 @@
-# ⭐ Dev Exchange⭐
+<article align="center">
 
+![DevExchange](https://github.com/Nishitbaria/Dev-Exchange/assets/85815172/f5333bca-01a9-4545-b75e-32a3f2844602)
 
-![image](https://github.com/Nishitbaria/Dev-Exchange/assets/85815172/154b1c51-8799-497c-96ab-5c7bad6c9e74)
+</article><hr>
 
+<a name="welcome"></a>
 
+# Welcome to DevExchage 👋
 
 A community-driven platform for asking and answering programming questions 💙. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.
 
-## Features
+## Table of Contents
 
-1. **Ask and Answer Questions:**
-   - Users can post programming questions and receive answers from the community.
-   - Collaborative environment to share knowledge and solutions.
+- [Welcome to DevExchange👋](#welcome)
+  - [Table of Contents](#table-of-contents)
+  - [Live demo 💻](#live-demo-)
+  - [Tech stack 📚](#tech-stack-)
+  - [Installation](#set-up)
+  - [Want to Contribute? 👩‍💻](#want-to-contribute-)
+  - [Maintainers 🤝](#maintainers-)
+  - [Top 50 Contributors ✨](#top-50-contributors-)
+  - [License 📝](#license-)
+  - [Support ⭐](#support-)
 
-2. **AI-Powered Answers:**
-   - Integrated AI to assist in finding solutions to posted questions.
+<a name="demo"></a>
+## Live demo 💻
 
-3. **Collections:**
-   - Users can create collections of questions for easy reference.
-   - Save and organize questions that you find helpful.
+Visit https://devexchanges.vercel.app/ to see the live demo!
 
-4. **Badge System:**
-   - Recognize active contributors with a badge system.
-   - Display badges on user profiles to showcase their contributions.
+## Tech stack 📚
 
-5. **Reputation System:**
-   - Implement a reputation system to highlight active and respected members.
-   - Users earn reputation points based on their contributions.
-
-6. **Dark Mode:**
-   - Enjoy a comfortable browsing experience with a dark mode option.
-
-7. **Clerk Authentication:**
-   - Secure user authentication using Clerk for a seamless login experience.
-
-8. **MongoDB Aggregation for Filtering:**
-   - Utilize MongoDB aggregation for efficient and powerful question filtering.
-
-9. **Global Search:**
-   - Search anything on the platform, including questions, users, and tags.
-
-10. **User Tagging:**
-    - Tag users to bring attention to specific questions or discussions.
-
-11. **Recommended Algorithm:**
-    - Algorithm recommends similar questions based on users' frequent visits.
-
-## Tech Stack
-
-- Next.js 14
-- Database: MongoDB
-- Authentication: Clerk
-- Styling: CSS
+<p>
+  <a href="https://nextjs.org/">
+    <img src="https://img.shields.io/badge/Next.js-7c3aed?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js Official Website"/>
+  </a>
+  <a href="https://tailwindcss.com/">
+    <img src="https://img.shields.io/badge/tailwind_css-7c3aed?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="TailWind CSS Official Website"/>
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/typescript-7c3aed?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript official Website"/>
+  </a>
+  <a href="https://www.mongodb.com/">
+    <img src="https://img.shields.io/badge/MongoDB-7c3aed?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB official Website"/>
+  </a>
+  <a href="https://openai.com/">
+    <img src="https://img.shields.io/badge/OpenAI-7c3aed?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Official Website"/>
+  </a>
+</p>
 
 
+<a name="set-up"></a>
 
 ## Installation
 
@@ -131,3 +127,71 @@ npm start
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to access the production build locally.
+
+---
+
+<a name="want-to-contribute"></a>
+
+## Want to Contribute? 👩‍💻
+
+Please follow our [CONTRIBUTING guidelines](https://github.com/Nishitbaria/Dev-Exchange/blob/main/CONTRIBUTING.md) for the following:-
+
+- Setup DevExchange on your local machine
+- Create an Issue using the relevant issue Template
+- Follow the contributing guidelines
+- And more!
+
+---
+
+## Maintainers 🤝
+
+Need help while contributing? Tag any of the maintainers when creating the issue. You can tag us using: `@username`
+
+<table style="border: none;">
+<tr>
+<td align="center" width="200"><pre><a href="https://github.com/Yash636261"><img src="https://avatars.githubusercontent.com/u/98970491?v=4" width="200" alt="Profile" /><br><sub>@Yash636261</sub></a></pre></td>
+<td align="center" width="200"><pre><a href="https://github.com/Nishitbaria"><img src="https://avatars.githubusercontent.com/u/85815172?v=4" width="200" alt="Profile" /><br><sub>@Nishitbaria</sub></a></pre></td>
+<td align="center" width="200"><pre><a href="https://github.com/VinayakVispute"><img src="https://avatars.githubusercontent.com/u/93467074?v=4" width="200" alt="Profile" /><br><sub>@VinayakVispute</sub></a>
+<td align="center" width="200"><pre><a href="https://github.com/JayeshYadav99"><img src="https://avatars.githubusercontent.com/u/107855172?v=4" width="200" alt="Profile" /><br><sub>@JayeshYadav99</sub></a></pre></td>
+</tr>
+</table>
+
+<a name="our-contributors"></a>
+
+## Top 50 Contributors ✨
+
+We would like to express our sincere gratitude to all the contributors who have helped make LinksHub an invaluable resource for developers! Without your contributions, this project wouldn't have been possible. Thank you so much for your time, effort, and dedication! 😄
+
+<a href="https://github.com/Nishitbaria/Dev-Exchange/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Nishitbaria/Dev-Exchange" />
+</a>
+
+_View the list of all contributors [here](https://github.com/Nishitbaria/Dev-Exchange/graphs/contributors)._
+
+
+## License 📝
+
+
+<table>
+  <tr>
+     <td>
+       <p align="center"> <img src="https://github.com/rupali-codes/LinksHub/assets/66154908/65ae0c03-9cad-47a6-80b8-23c91cd2ac4e" width="80%"></img>
+    </td>
+    <td> 
+      <img src="https://img.shields.io/badge/License-MIT-yellow.svg"/> <br> 
+LinksHub is licensed under the terms of the MIT License. check out <a href="./LICENSE">LICENSE</a> for details. <img width=2300/>
+    </td>
+  </tr>
+</table>
+
+
+<a name="support"></a>
+
+## Support ⭐
+
+- 💰 Become our [Sponsor](https://github.com/sponsors/nishitbaria)!
+- ⭐ Star our Repo 
+- 🥇  Rate us on [Repo Rater](https://repo-rater.eddiehub.io/)
+Together, we can continue to improve and expand this resource hub for people worldwide! 💪
+
+
