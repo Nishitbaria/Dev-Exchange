@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { Copy, CopyCheck } from 'lucide-react';
 import Prism from "prismjs";
 import parse from "html-react-parser";
 import "prismjs/components/prism-python";
@@ -25,8 +26,6 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-mongodb";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
-import { Button } from "../ui/button";
-
 interface Props {
   data: string;
 }
@@ -44,12 +43,12 @@ export default function ParseHTML({ data }: Props) {
 
   return (
     <div className={`w-full min-w-full relative`}>
-      <Button
+      <button
         onClick={handleCopy}
-        className="absolute top-0 right-0 bg-blue-500 text-white  mx-1 my-1   hover:bg-blue-700"
+        className="absolute top-0 right-0 my-3 mx-3"
       >
-        {copied ? "Copied!" : "Copy"}
-      </Button>
+        {copied ? (<CopyCheck size={30} color="white" />) : (<Copy size={30} color="white" />)}
+      </button>
       <div className="markdown">
       {parse(data)}
       </div>
