@@ -16,12 +16,10 @@ export async function createAnswer(params: CreateAnswerParams) {
   try {
     connectToDatabase();
 
-    const { content, author, question, path } = params; 3
+    const { content, author, question, path } = params; 
 
     const newAnswer = await Answer.create({ content, author, question });
 
-    // Add the answer to the question's answers array
-   
     // TODO: Add interaction...
 
     const questionObject = await Question.findByIdAndUpdate(question, {
