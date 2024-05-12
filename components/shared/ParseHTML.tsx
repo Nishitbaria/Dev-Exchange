@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Prism from "prismjs";
 import parse from "html-react-parser";
 import "prismjs/components/prism-python";
@@ -25,15 +25,34 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-mongodb";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import { Button } from "../ui/button";
 
 interface Props {
   data: string;
 }
 
 export default function ParseHTML({ data }: Props) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(data);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000); 
+  };
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
-  return <div className="markdown w-full min-w-full ">{parse(data)}</div>;
+  return (
+    <div className={`w-full min-w-full relative`}>
+      <Button
+        onClick={handleCopy}
+        className="absolute top-0 right-0 bg-blue-500 text-white  mx-1 my-1   hover:bg-blue-700"
+      >
+        {copied ? "Copied!" : "Copy"}
+      </Button>
+      <div className="markdown">
+      {parse(data)}
+      </div>
+    </div>
+  );
 }
