@@ -16,15 +16,12 @@ export async function createAnswer(params: CreateAnswerParams) {
   try {
     connectToDatabase();
 
-    const { content, author, question, path } = params;
+    const { content, author, question, path } = params; 3
 
     const newAnswer = await Answer.create({ content, author, question });
 
     // Add the answer to the question's answers array
-    await Question.findByIdAndUpdate(question, {
-      $push: { answers: newAnswer._id },
-    });
-
+   
     // TODO: Add interaction...
 
     const questionObject = await Question.findByIdAndUpdate(question, {
