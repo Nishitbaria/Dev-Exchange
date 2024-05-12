@@ -17,7 +17,7 @@ const NavContent = () => {
   const pathname = usePathname();
 
   return (
-    <section className="flex h-full flex-col gap-6 pt-16">
+    <section className="flex h-screen flex-col gap-6 pt-8 md:h-full">
       {sidebarLinks.map((item) => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
@@ -79,7 +79,7 @@ const MobileNav = () => {
             Dev <span className="text-primary-500">Overflow</span>
           </p>
         </Link>
-        <div>
+        <div className="h-full overflow-y-auto p-4 lg:h-fit lg:p-0">
           <SheetClose asChild>
             <NavContent />
           </SheetClose>
