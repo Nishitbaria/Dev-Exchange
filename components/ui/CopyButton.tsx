@@ -14,9 +14,9 @@ const CopyButton = ({ id }: { id: string }) => {
   return (
     <button onClick={handleCopy} className=" my-3 mx-3">
       {copied ? (
-        <CopyCheck size={24} color="white" />
+        <CopyCheck size={18} color="white" />
       ) : (
-        <Copy size={24} color="white" />
+        <Copy size={18} color="white" />
       )}
     </button>
   );
