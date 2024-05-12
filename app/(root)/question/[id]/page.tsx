@@ -52,12 +52,9 @@ const Page = async ({ params, searchParams }: any) => {
             />
           </div>
         </div>
-        <div className="flex justify-between w-full">
-          <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
-            {result.title}
-          </h2>
-         <CopyButton id={result._id} ></CopyButton>
-        </div>
+        <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
+          {result.title}
+        </h2>
       </div>
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
@@ -81,6 +78,7 @@ const Page = async ({ params, searchParams }: any) => {
           title=" Views"
           textStyles="small-medium text-dark400_light800"
         />
+        <CopyButton id={result._id}></CopyButton>
       </div>
 
       <ParseHTML data={result.content} />
