@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Prism from "prismjs";
 import parse from "html-react-parser";
 import "prismjs/components/prism-python";
@@ -30,16 +30,9 @@ interface Props {
 }
 
 export default function ParseHTML({ data }: Props) {
-  const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(data);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
-  };
   useEffect(() => {
     Prism.highlightAll();
   }, []);
-
   return (
     <div className={`w-full min-w-full relative markdown`}>{parse(data)}</div>
   );

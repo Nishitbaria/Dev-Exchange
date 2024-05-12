@@ -75,10 +75,10 @@ const Page = async ({ params, searchParams }: any) => {
           imgUrl="/assets/icons/eye.svg"
           alt="eye"
           value={formatAndDivideNumber(result.views)}
-          title=" Views"
+          title=" Views" 
           textStyles="small-medium text-dark400_light800"
         />
-        <CopyButton id={result._id}></CopyButton>
+        <CopyButton id={`${result._id}`}></CopyButton>
       </div>
 
       <ParseHTML data={result.content} />
