@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Copy, CopyCheck } from 'lucide-react';
 import Prism from "prismjs";
 import parse from "html-react-parser";
 import "prismjs/components/prism-python";
@@ -35,23 +34,13 @@ export default function ParseHTML({ data }: Props) {
   const handleCopy = () => {
     navigator.clipboard.writeText(data);
     setCopied(true);
-    setTimeout(() => setCopied(false), 3000); 
+    setTimeout(() => setCopied(false), 3000);
   };
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
   return (
-    <div className={`w-full min-w-full relative`}>
-      <button
-        onClick={handleCopy}
-        className="absolute top-0 right-0 my-3 mx-3"
-      >
-        {copied ? (<CopyCheck size={30} color="white" />) : (<Copy size={30} color="white" />)}
-      </button>
-      <div className="markdown">
-      {parse(data)}
-      </div>
-    </div>
+    <div className={`w-full min-w-full relative markdown`}>{parse(data)}</div>
   );
 }
