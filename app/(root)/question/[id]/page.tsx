@@ -1,3 +1,4 @@
+import CopyButton from "@/components/ui/CopyButton";
 import Answer from "@/components/forms/Answer";
 import AllAnswers from "@/components/shared/AllAnswers";
 import ParseHTML from "@/components/shared/ParseHTML";
@@ -14,14 +15,11 @@ import React from "react";
 
 const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth();
-
   let mongoUser;
-
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId });
   }
   const result = await getQuestionById({ questionId: params.id });
-
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -42,6 +40,7 @@ const Page = async ({ params, searchParams }: any) => {
             </p>
           </Link>
           <div className="flex justify-end">
+            <CopyButton id={`${result._id}`}></CopyButton>
             <Votes
               type="Question"
               itemId={JSON.stringify(result._id)}
