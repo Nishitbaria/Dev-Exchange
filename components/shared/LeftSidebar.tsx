@@ -40,9 +40,9 @@ const LeftSidebar = () => {
               key={item.label}
               className={`${
                 isActive
-                  ? "primary-gradient rounded-lg text-light-900"
-                  : "text-dark300_light900"
-              }  flex items-center justify-start gap-4 bg-transparent p-4`}
+                  ? "primary-gradient text-light-900"
+                  : "text-dark300_light900 hover:bg-light-800 dark:hover:bg-dark-400"
+              }  flex items-center justify-start gap-4 bg-transparent p-4 rounded-lg`}
             >
               <Image
                 src={item.imgURL}
