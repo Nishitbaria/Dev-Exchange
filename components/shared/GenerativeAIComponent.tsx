@@ -195,7 +195,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
                 generateContent();
               }}
               key={e.question}
-              className="block rounded-xl min-h-36  border border-gray-100 w-56 text-left p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
+              className="block rounded-xl min-h-36  border border-gray-700 w-56 text-left p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
             >
               <span className="inline-block rounded-full bg-gray-50 p-3">
                 {e.icon}
