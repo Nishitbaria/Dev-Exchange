@@ -44,10 +44,9 @@ const LeftSidebar = () => {
 					return (
 						<TooltipProvider>
 							<Tooltip>
-								<TooltipTrigger>
+								<TooltipTrigger key={item.label}>
 									<Link
 										href={item.route}
-										key={item.label}
 										className={`${
 											isActive
 												? "primary-gradient text-light-900"
