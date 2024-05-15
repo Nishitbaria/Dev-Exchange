@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
