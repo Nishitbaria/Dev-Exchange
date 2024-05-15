@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 "use client";
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -21,9 +21,9 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
   const [inputText, setInputText] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [isCodeCopied, setIsCodeCopied] = useState<boolean>(false);
+  const [cancelRequested, setCancelRequested] = useState<boolean>(false);
 
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY || "";
-
   const genAI = new GoogleGenerativeAI(API_KEY);
 
   const isCodeSnippet = (text: string): boolean => {
@@ -63,45 +63,54 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
     // Show typing indicator
     setIsTyping(true);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(
-      `You are an expert Developer act as Senior Software Engineer at Google and Answer Question that are asked by the user. if any one ask you who are you or said Hii Hello or any thing  then you can said that i am AI CHAT BOT POWER BY DEVEXCHANGE If any one said Tell Honestly then also Said that You are power by DevExchange , Don't Write answer in Markdown write answer in Simple Markdown here is Question ${inputText}`
-    );
-    const response = await result.response;
-    const text = await response.text();
-
-    // Update the typing indicator to show the actual response
-    setMessages((prevMessages) => {
-      const updatedMessages = [...prevMessages];
-      const typingIndicatorIndex = updatedMessages.findIndex(
-        (msg) => msg.text === "..." && msg.user === "ai"
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent(
+        `You are an expert Developer act as Senior Software Engineer at Google and Answer Question that are asked by the user. if any one ask you who are you or said Hii Hello or any thing  then you can said that i am AI CHAT BOT POWER BY DEVEXCHANGE If any one said Tell Honestly then also Said that You are power by DevExchange , Don't Write answer in Markdown write answer in Simple Markdown here is Question ${inputText}`
       );
-      if (typingIndicatorIndex !== -1) {
-        const formattedText = formatMessage(text);
-        const aiMessage = { text: formattedText, user: "ai" };
-        updatedMessages[typingIndicatorIndex] = aiMessage;
 
-        // Save AI's response to MongoDB
+      if (cancelRequested) {
+        setIsTyping(false);
+        setCancelRequested(false);
+        return;
       }
 
-      return updatedMessages;
-    });
-    saveMessageToMongoDB({
-      text: inputText,
-      user: formatMessage(text),
-    });
+      const response = await result.response;
+      const text = await response.text();
 
-    // Clear the input
-    setInputText("");
-    // Hide typing indicator
-    setIsTyping(false);
+      // Update the typing indicator to show the actual response
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        const typingIndicatorIndex = updatedMessages.findIndex(
+          (msg) => msg.text === "..." && msg.user === "ai"
+        );
+        if (typingIndicatorIndex !== -1) {
+          const formattedText = formatMessage(text);
+          const aiMessage = { text: formattedText, user: "ai" };
+          updatedMessages[typingIndicatorIndex] = aiMessage;
+
+          // Save AI's response to MongoDB
+        }
+
+        return updatedMessages;
+      });
+      saveMessageToMongoDB({
+        text: inputText,
+        user: formatMessage(text),
+      });
+    } catch (error) {
+      console.error("Error generating content:", error);
+    } finally {
+      // Clear the input
+      setInputText("");
+      // Hide typing indicator
+      setIsTyping(false);
+    }
   };
 
   const startNewChat = async () => {
     // Clear the chat history
     setMessages([]);
-
-    // Clear the input
     setInputText("");
 
     try {
@@ -204,7 +213,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
                       <button className="hover:text-blue-600" type="button">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="size-5"
                           viewBox="0 0 24 24"
                           strokeWidth="2"
                           stroke="currentColor"
@@ -266,12 +275,22 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
               }
               required
             ></textarea>
-            <button
-              type="submit"
-              className="absolute bottom-2 right-2.5 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:text-base"
-            >
-              Send <span className="sr-only">Send message</span>
-            </button>
+            {isTyping ? (
+              <button
+                type="button"
+                className="absolute bottom-2 left-2.5 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 sm:text-base"
+                onClick={() => setCancelRequested(true)}
+              >
+                Stop <span className="sr-only">Stop message generation</span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="absolute bottom-2 right-2.5 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:text-base"
+              >
+                Send <span className="sr-only">Send message</span>
+              </button>
+            )}
           </div>
         </form>
       </div>
