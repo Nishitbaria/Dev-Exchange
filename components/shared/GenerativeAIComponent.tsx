@@ -187,7 +187,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
   return (
     <>
       {messages.length > 0 && isTyping ? (
-        <div className="flex w-full border p-4  gap-10 mx-[10%] justify-center">
+        <div className="flex w-full border p-4 text-white  gap-10 mx-[10%] justify-center">
           {questions.map((e) => (
             <div
               onClick={() => {
@@ -197,12 +197,10 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
               key={e.question}
               className="block rounded-xl min-h-36  border border-gray-100 w-56 text-left p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
             >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
+              <span className="inline-block rounded-full bg-gray-50 p-3">
                 {e.icon}
               </span>
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                {e.question}
-              </p>
+              <p className="hidden sm:mt-1 sm:block sm:text-sm">{e.question}</p>
             </div>
           ))}
         </div>
