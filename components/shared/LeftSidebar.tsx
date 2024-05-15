@@ -61,7 +61,7 @@ const LeftSidebar = () => {
                       <p
                         className={`${
                           isActive ? "base-bold" : "base-medium"
-                        } w-[150px] max-lg:hidden`}
+                        } text-left w-[150px] max-lg:hidden`}
                       >
                         {item.label}
                       </p>
