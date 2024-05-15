@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
