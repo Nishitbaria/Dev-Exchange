@@ -186,7 +186,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
 
   return (
     <>
-      {messages.length > 0 && isTyping ? (
+      {messages.length > 0 ? (
         <div className="flex w-full border p-4 text-white  gap-10 mx-[10%] justify-center">
           {questions.map((e) => (
             <div
