@@ -7,6 +7,7 @@ import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import axios from "axios";
+import { Bot, Contact, Cpu, MemoryStick } from "lucide-react";
 
 interface Props {
   imgurl: any;
@@ -121,6 +122,22 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
     }
   };
 
+  // Use can fetch some trending question from openAPI and can put here on each reload.
+  const questions = [
+    {
+      question: "How does artificial intelligence impact jobs?",
+      icon: <Bot />,
+    },
+    {
+      question: "What are the latest developments in blockchain technology? ",
+      icon: <Cpu />,
+    },
+    {
+      question: "What are the risks and benefits of 5G technology?",
+      icon: <MemoryStick />,
+    },
+  ];
+
   const saveMessageToMongoDB = async (message: {
     text: string;
     user: string;
@@ -169,6 +186,25 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
 
   return (
     <>
+      {messages.length > 0 ? (
+        <div className="flex w-full p-4 text-white  gap-10 mx-auto justify-center">
+          {questions.map((e) => (
+            <div
+              onClick={() => {
+                setInputText(e.question);
+                generateContent();
+              }}
+              key={e.question}
+              className="block rounded-xl min-h-36  border border-gray-700 w-56 text-left p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
+            >
+              <span className="inline-block rounded-full bg-gray-50 p-3">
+                {e.icon}
+              </span>
+              <p className="hidden sm:mt-1 sm:block sm:text-sm">{e.question}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
       {/* response components */}
       <div className="background-light700_dark400 mt-16  flex-1 space-y-6 overflow-y-auto rounded-xl p-4 text-sm leading-6 text-slate-900 shadow-sm dark:text-slate-300 sm:text-base sm:leading-7">
         {messages.map((msg, index) => (
