@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import LeaderBoardTable from '@/components/shared/LeaderBoardTable';
 import User from '@/database/user.model';
 
