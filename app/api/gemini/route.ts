@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-let API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY;
 
 
 const googleAI = new GoogleGenerativeAI(API_KEY);
