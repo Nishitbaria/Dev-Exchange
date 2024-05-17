@@ -42,7 +42,7 @@ const LeftSidebar = () => {
                 isActive
                   ? "primary-gradient text-light-900"
                   : "text-dark300_light900 hover:bg-light-800 dark:hover:bg-dark-400"
-              }  flex items-center justify-start gap-4 bg-transparent p-4 rounded-lg`}
+              }  flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
             >
               <Image
                 src={item.imgURL}
