@@ -6,7 +6,7 @@ import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import axios from "axios";
-import { marked } from "marked";
+import { marked } from "marked"; // Correct import
 
 interface Props {
   imgurl: any;
@@ -33,10 +33,20 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
     });
   };
 
+  // Function to extract code content from a string
+  const extractCode = (text: string): string => {
+    const match = codeBlockRegex.exec(text);
+    if (match) {
+      return match[2].trim(); // Return the code content without the language tag
+    }
+    return text;
+  };
+
   // Function to render message with markdown support
+  // eslint-disable-next-line no-undef
   const renderMarkdown = (text: string): JSX.Element => {
     // Render markdown and inject syntax highlighted code
-    const html = marked(formatMessage(text)); // Use marked directly
+    const html = marked(text); // Render markdown first
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
   };
 
@@ -157,7 +167,7 @@ export default function GenerativeAIComponent({ imgurl, userId }: Props) {
                 <div className="mb-2 flex w-full flex-row justify-end gap-x-2 text-slate-500">
                   {msg.user === "ai" && (
                     <CopyToClipboard
-                      text={msg.text}
+                      text={extractCode(msg.text)} // Use extractCode for copying
                       onCopy={() => setIsCodeCopied(true)}
                     >
                       <button className="hover:text-blue-600" type="button">
