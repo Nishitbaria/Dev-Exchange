@@ -55,6 +55,7 @@ const Stats = ({ totalQuestions, totalAnswers, badges, reputation }: Props) => {
           value={badges.GOLD}
           title="Gold Badges"
         />
+        
 
         <StatsCard 
           imgUrl="/assets/icons/silver-medal.svg"
