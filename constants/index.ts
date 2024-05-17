@@ -33,6 +33,11 @@ export const sidebarLinks: SidebarLink[] = [
     label: "Profile",
   },
   {
+    imgURL: "/assets/icons/leaderboard.png",
+    route: "/leaderboard",
+    label: "Leaderboard",
+  },
+  {
     imgURL: "/assets/icons/question.svg",
     route: "/ask-question",
     label: "Ask a question",
@@ -42,6 +47,8 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/chat",
     label: "Power by ai",
   },
+  
+  
 ];
 
 export const BADGE_CRITERIA = {

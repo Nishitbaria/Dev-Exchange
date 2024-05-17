@@ -70,7 +70,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/gemini`,
         {
           method: "POST",
           body: JSON.stringify({ question }),
@@ -78,8 +78,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       );
       console.log("response", response);
       const aiAnswer = await response.json();
-
-      // Convert plain text to HTML format
 
       const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
 
