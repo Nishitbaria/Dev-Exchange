@@ -36,6 +36,7 @@ const Profile = ({ clerkId, user }: Props) => {
       name: parsedUser.name || "",
       username: parsedUser.username || "",
       portfolioWebsite: parsedUser.portfolioWebsite || "",
+      github: parsedUser.github || "",
       location: parsedUser.location || "",
       bio: parsedUser.bio || "",
     },
@@ -43,20 +44,22 @@ const Profile = ({ clerkId, user }: Props) => {
 
   async function onSubmit(values: z.infer<typeof ProfileSchema>) {
     setIsSubmitting(true);
-
+    
     try {
-      await updateUser({
+      const response = await updateUser({
         clerkId,
         updateData: {
           name: values.name,
           username: values.username,
           portfolioWebsite: values.portfolioWebsite,
+          github: values.github,
           location: values.location,
           bio: values.bio,
         },
         path: pathname,
       });
-
+  
+      console.log('Update Response:', response);
       router.back();
     } catch (error) {
       console.log(error);
@@ -121,6 +124,27 @@ const Profile = ({ clerkId, user }: Props) => {
                 <Input
                   type="url"
                   placeholder="Your portfolio URL"
+                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="github"
+          render={({ field }) => (
+            <FormItem className="space-y-3.5">
+              <FormLabel className="paragraph-semibold text-dark400_light800">
+                Github Username
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="Your Github Username"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />

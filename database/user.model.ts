@@ -10,6 +10,7 @@ export interface IUser extends Document {
   picture: string;
   location?: string;
   portfolioWebsite?: string;
+  github?: string;
   reputation?: number;
   saved: Schema.Types.ObjectId[];
   joinedAt: Date;
@@ -25,6 +26,7 @@ const UserSchema = new Schema({
   picture: { type: String, required: true },
   location: { type: String },
   portfolioWebsite: { type: String },
+  github: { type: String },
   reputation: { type: Number, default: 0 },
   saved: [{ type: Schema.Types.ObjectId, ref: 'Question' }], 
   joinedAt: { type: Date, default: Date.now },
