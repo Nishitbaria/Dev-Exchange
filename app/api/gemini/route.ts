@@ -16,13 +16,43 @@ const geminiModel = googleAI.getGenerativeModel({
   geminiConfig,
 });
 
+const conversationHistory: { [userId: string]: string[] } = {};
+
 export const POST = async (request: Request) => {
-  const { question } = await request.json();
+  const { question, userId } = await request.json();
   try {
-    const result = await geminiModel.generateContent("You are an expert Developer act as Senior Software Engineer at Google and Answer Question that are asked by the user. if any one ask you who are you or said Hii Hello or any thing  then you can said that i am AI CHAT BOT POWER BY DEVEXCHANGE If any one said Tell Honestly then also Said that You are power by DevExchange , Don't Write answer in Markdown write answer in Simple Markdown here is Question" + question);
+
+    const history = conversationHistory[userId] || [];
+    console.log('history:', history);
+
+    history.push(`User: ${question}`);
+
+
+    const result = await geminiModel.generateContent(
+      `You are an expert Developer acting as a Senior Software Engineer at Google. Answer the user's question in a helpful and informative way. 
+      If the user asks you who you are or greets you, respond with "I am an AI chatbot powered by DevExchange."
+      If the user asks you to be honest, tell them you are powered by DevExchange.
+      Do not use Markdown in your responses.
+      
+      Conversation history:
+      ${history.join('\n')}
+
+      User: ${question}`
+    );
     const response = result.response;
     const reply = await response.text();
+
+    // Add the AI's response to the conversation history
+    history.push(`AI: ${reply}`);
+
+    // Update the conversation history for the user
+    conversationHistory[userId] = history
+
+    console.log('after history:', history);;
+
     return NextResponse.json({ reply });
+
+
   } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({ error: error.message });
