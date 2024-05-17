@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^0.0.14",
+    "@ai-sdk/openai": "^0.0.13",
     "@clerk/nextjs": "^5.0.8",
     "@clerk/themes": "^2.1.3",
     "@google/generative-ai": "^0.11.1",
@@ -27,6 +29,7 @@
     "@types/body-parser": "^1.19.5",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
+    "ai": "^3.1.12",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "class-variance-authority": "^0.7.0",
@@ -38,6 +41,7 @@
     "framer-motion": "^11.1.9",
     "html-react-parser": "^5.1.10",
     "lucide-react": "^0.378.0",
+    "marked": "^12.0.2",
     "mongodb": "^6.6.1",
     "mongoose": "^8.3.4",
     "next": "14.2.3",

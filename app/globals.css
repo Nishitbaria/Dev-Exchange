@@ -62,16 +62,14 @@ body {
   @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
 }
 
-
-
 .active-theme {
   filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
     brightness(104%) contrast(106%) !important;
 }
 .active-theme-blue {
-  filter: invert(26%) sepia(55%) saturate(1242%) hue-rotate(191deg) brightness(91%) contrast(109%) !important;
+  filter: invert(26%) sepia(55%) saturate(1242%) hue-rotate(191deg)
+    brightness(91%) contrast(109%) !important;
 }
-
 
 .light-gradient {
   background: linear-gradient(
@@ -170,15 +168,42 @@ code {
   scrollbar-width: none; /* Firefox */
 }
 
-
 .cl-formButtonPrimary {
   font-size: 14px;
   text-transform: none;
   background-color: #611bbd;
 }
- 
+
 .cl-formButtonPrimary:hover,
 .cl-formButtonPrimary:focus,
 .cl-formButtonPrimary:active {
   background-color: #49247a;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 80%;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
 }
