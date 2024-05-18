@@ -6,7 +6,8 @@ interface LeaderBoardData {
   rank: number;
   name: string;
   score: number;
-  picture:string
+  picture:string,
+  clerkId:string
 }
 
 const LeaderBoard: React.FC =async () => {
@@ -21,7 +22,9 @@ const LeaderBoard: React.FC =async () => {
             picture:user.picture,
           rank: index + 1,
           name: user.name,
-          score: user.reputation
+          score: user.reputation,
+          clerkId:user.clerkId
+
         }));
 
 
