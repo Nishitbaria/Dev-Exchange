@@ -50,21 +50,31 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function updateUser(params: UpdateUserParams) {
   try {
-    connectToDatabase();
+
+    await connectToDatabase();
 
     const { clerkId, updateData, path } = params;
 
-    await User.findOneAndUpdate({ clerkId }, updateData, {
+    const user = await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
+      runValidators: true,
     });
 
-    revalidatePath(path);
+
+    user.github=updateData.github;
+    await user.save();
+    
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    await revalidatePath(path);
   } catch (error) {
-    console.log(error);
+    console.error('Error updating user:', error);
     throw error;
   }
 }
-
 export async function deleteUser(params: DeleteUserParams) {
   try {
     connectToDatabase();

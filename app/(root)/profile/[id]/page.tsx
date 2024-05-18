@@ -14,6 +14,7 @@ import Stats from "@/components/shared/Stats";
 import QuestionTab from "@/components/shared/QuestionTab";
 import AnswersTab from "@/components/shared/AnswersTab";
 import type { Metadata } from "next";
+import GithubRepos from "@/components/shared/GithubRepos";
 
 export const metadata: Metadata = {
   title: "Profile Page",
@@ -49,6 +50,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
                   imgUrl="/assets/icons/link.svg"
                   href={userInfo.user.portfolioWebsite}
                   title="Portfolio"
+                />
+              )}
+
+            {userInfo.user.github && (
+                <ProfileLink
+                  imgUrl="/assets/icons/github.png"
+                  href={`https://github.com/`+userInfo.user.github}
+                  title="Github"
                 />
               )}
 
@@ -102,6 +111,9 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <TabsTrigger value="answers" className="tab">
               Answers
             </TabsTrigger>
+            <TabsTrigger value="Github" className="tab">
+              Github
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts">
             <QuestionTab
@@ -116,6 +128,9 @@ const Page = async ({ params, searchParams }: URLProps) => {
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
+          </TabsContent>
+          <TabsContent value="Github" className="flex w-full flex-col gap-6">
+           <GithubRepos  username={userInfo.user.github}/>
           </TabsContent>
         </Tabs>
       </div>
