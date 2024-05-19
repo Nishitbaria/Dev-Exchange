@@ -207,3 +207,20 @@ code {
 .space-y-2 > * + * {
   margin-top: 0.5rem;
 }
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #5e72e4, #1f8ef1);
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #0c82ea, #3d55de);
+}
