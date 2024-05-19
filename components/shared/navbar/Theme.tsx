@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-
+import { useEffect } from "react";
 import { useTheme } from "@/context/ThemeProvider";
 
 import {
@@ -16,7 +16,35 @@ import { themes } from "@/constants";
 
 const Theme = () => {
   const { mode, setMode } = useTheme();
-
+  useEffect(() => {
+    if (mode === "light") {
+      document.documentElement.style.setProperty(
+        "--scrollbar-track-color",
+        "#FDFDFD"
+      );
+      document.documentElement.style.setProperty(
+        "--scrollbar-thumb-color",
+        "#bebebe"
+      );
+      document.documentElement.style.setProperty(
+        "--scrollbar-thumb-hover-color",
+        "#999999"
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        "--scrollbar-track-color",
+        "#000000"
+      );
+      document.documentElement.style.setProperty(
+        "--scrollbar-thumb-color",
+        "#565656"
+      );
+      document.documentElement.style.setProperty(
+        "--scrollbar-thumb-hover-color",
+        "#3d3d3d"
+      );
+    }
+  }, [mode]);
   return (
     <Menubar className="relative border-none bg-transparent shadow-none">
       <MenubarMenu>
