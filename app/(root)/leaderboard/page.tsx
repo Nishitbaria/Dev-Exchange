@@ -39,7 +39,7 @@ const LeaderBoard: React.FC =async () => {
 
   return (
     <div className="container mx-auto px-4">
-      <h2 className="text-2xl font-bold mb-4 text-blue-300">Leaderboard</h2>
+      <h2 className="mb-4 text-2xl font-bold text-blue-300">Leaderboard</h2>
       <LeaderBoardTable leaderData={leaderData} />
     </div>
   );
