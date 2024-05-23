@@ -24,6 +24,13 @@ const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
   const userInfo = await getUserInfo({ userId: params.id });
 
+  const currentUserInfo = await getUserInfo({
+    userId: clerkId ?? ''
+  });
+
+  const userInfoJson = JSON.stringify(userInfo);
+  const currentUserInfoJson = JSON.stringify(currentUserInfo);
+
   return (
     <>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
@@ -36,7 +43,8 @@ const Page = async ({ params, searchParams }: URLProps) => {
             className="rounded-full object-cover"
           />
 
-          <div className="mt-3">
+        <div className="flex flex-col">
+        <div className="mt-3">
             <h2 className="h2-bold text-dark100_light900">
               {userInfo.user.name}
             </h2>
@@ -74,13 +82,28 @@ const Page = async ({ params, searchParams }: URLProps) => {
               />
             </div>
 
-            {userInfo.user.bio && (
+            <div className="flex items-center gap-5 mt-5">
+              <p className="paragraph-medium text-dark200_light800">
+                {userInfo.user.followers.length} Followers
+              </p>
+              <p className="paragraph-medium text-dark200_light800">
+                {userInfo.user.following.length} Following
+              </p>
+
+              </div>
+         
+          </div>
+
+          {userInfo.user.bio && (
               <p className="paragraph-regular text-dark400_light800 mt-8">
                 {userInfo.user.bio}
               </p>
             )}
-          </div>
         </div>
+
+        </div>
+
+     
 
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
           <SignedIn>
@@ -91,6 +114,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
                 </Button>
               </Link>
             )}
+
           </SignedIn>
         </div>
       </div>
@@ -100,6 +124,9 @@ const Page = async ({ params, searchParams }: URLProps) => {
         totalQuestions={userInfo.totalQuestions}
         totalAnswers={userInfo.totalAnswers}
         badges={userInfo.badgeCounts}
+        clerkId={clerkId}
+        userInfo={userInfoJson}
+        currentUserInfo={currentUserInfoJson}
       />
 
       <div className="mt-10 flex gap-10">

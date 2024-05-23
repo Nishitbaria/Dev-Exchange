@@ -19,6 +19,7 @@ import Tag from "@/database/tags.model";
 import Answer from "@/database/answer.model";
 import { BadgeCriteriaType } from "@/types";
 import { assignBadges } from "../utils";
+import mongoose from "mongoose";
 
 export async function getUserById(params: any) {
   try {
@@ -259,7 +260,6 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     throw error;
   }
 }
-
 export async function getUserInfo(params: GetUserByIdParams) {
   try {
     connectToDatabase();
@@ -336,12 +336,17 @@ export async function getUserInfo(params: GetUserByIdParams) {
 
     const badgeCounts = assignBadges({ criteria });
 
+    const following = await User.find({ _id: { $in: user.following } });
+    const followers = await User.find({ following: user._id });
+
     return {
       user,
       totalQuestions,
       totalAnswers,
       badgeCounts,
       reputation: user.reputation,
+      following,
+      followers,
     };
   } catch (error) {
     console.log(error);
@@ -395,6 +400,82 @@ export async function getUserAnswers(params: GetUserStatsParams) {
     const isNextAnswer = totalAnswers > skipAmount + userAnswers.length;
 
     return { totalAnswers, answers: userAnswers, isNextAnswer };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function followUser(params: {
+  currentUserId: string;
+  UserToFollowId: string;
+  path: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const { currentUserId, UserToFollowId, path } = params;
+
+    console.log(currentUserId);
+    console.log(UserToFollowId);
+
+    
+    const currentUserIdObj =new mongoose.Types.ObjectId(currentUserId);
+    const userToFollowIdObj =new  mongoose.Types.ObjectId(UserToFollowId);
+
+    const user = await User.findById(currentUserIdObj);
+    const followUser = await User.findById(userToFollowIdObj);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (!user.following) {
+      user.following = [];
+    }
+
+    if (!user.followers) {
+      user.followers = [];
+    }
+
+    if (!followUser.followers) {
+      followUser.followers = [];
+    }
+
+    if (!followUser.following) {
+      followUser.following = [];
+    }
+
+    const isFollowing = user.following.includes(followUser._id);
+
+    if (isFollowing) {
+      await User.findByIdAndUpdate(
+        currentUserIdObj,
+        { $pull: { following: userToFollowIdObj } },
+        { new: true }
+      );
+
+      await User.findByIdAndUpdate(
+        userToFollowIdObj,
+        { $pull: { followers: currentUserIdObj } },
+        { new: true }
+      );
+    } else {
+   
+      await User.findByIdAndUpdate(
+        currentUserIdObj,
+        { $addToSet: { following: userToFollowIdObj } },
+        { new: true }
+      );
+
+      await User.findByIdAndUpdate(
+        userToFollowIdObj,
+        { $addToSet: { followers: currentUserIdObj } },
+        { new: true }
+      );
+    }
+
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;

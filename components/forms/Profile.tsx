@@ -46,7 +46,7 @@ const Profile = ({ clerkId, user }: Props) => {
     setIsSubmitting(true);
     
     try {
-      const response = await updateUser({
+     await updateUser({
         clerkId,
         updateData: {
           name: values.name,
@@ -58,8 +58,6 @@ const Profile = ({ clerkId, user }: Props) => {
         },
         path: pathname,
       });
-  
-      console.log('Update Response:', response);
       router.back();
     } catch (error) {
       console.log(error);
