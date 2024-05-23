@@ -6,12 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { SignedOut, useAuth } from "@clerk/nextjs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
@@ -40,38 +34,28 @@ const LeftSidebar = () => {
 
           return (
             <div key={index}>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger key={item.label}>
-                    <Link
-                      href={item.route}
-                      className={`${
-                        isActive
-                          ? "primary-gradient text-light-900"
-                          : "text-dark300_light900 hover:bg-light-800 dark:hover:bg-dark-400"
-                      }  flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
-                    >
-                      <Image
-                        src={item.imgURL}
-                        alt={item.label}
-                        width={20}
-                        height={20}
-                        className={`${isActive ? "" : "invert-colors"}`}
-                      />
-                      <p
-                        className={`${
-                          isActive ? "base-bold" : "base-medium"
-                        } w-[150px] text-left max-lg:hidden`}
-                      >
-                        {item.label}
-                      </p>
-                      <TooltipContent>
-                        <p>{item.label}</p>
-                      </TooltipContent>
-                    </Link>
-                  </TooltipTrigger>
-                </Tooltip>
-              </TooltipProvider>
+              <Link
+                href={item.route}
+                className={`${isActive
+                  ? "primary-gradient text-light-900"
+                  : "text-dark300_light900 hover:bg-light-800 dark:hover:bg-dark-400"
+                  }  flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
+              >
+                <Image
+                  src={item.imgURL}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                  className={`${isActive ? "" : "invert-colors"}`}
+                />
+                <p
+                  className={`${isActive ? "base-bold" : "base-medium"
+                    } w-[150px] text-left max-lg:hidden`}
+                >
+                  {item.label}
+                </p>
+
+              </Link>
             </div>
           );
         })}
