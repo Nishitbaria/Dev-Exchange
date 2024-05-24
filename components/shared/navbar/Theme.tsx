@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useTheme } from "@/context/ThemeProvider";
 
@@ -16,6 +16,19 @@ import { themes } from "@/constants";
 
 const Theme = () => {
   const { mode, setMode } = useTheme();
+  useEffect(() => {
+    if (mode === "light") {
+      document.documentElement.style.setProperty(
+        "--menubar-close-btn",
+        "#000000"
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        "--menubar-close-btn",
+        "#ffffff"
+      );
+    }
+  }, [mode]);
 
   return (
     <Menubar className="relative border-none bg-transparent shadow-none">

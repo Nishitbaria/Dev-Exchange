@@ -207,3 +207,8 @@ code {
 .space-y-2 > * + * {
   margin-top: 0.5rem;
 }
+
+/* Menubar close button dynamic css  */
+.menubar-close-btn {
+  stroke: var(--menubar-close-btn);
+}
