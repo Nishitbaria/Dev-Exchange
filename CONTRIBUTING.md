@@ -39,20 +39,37 @@ Follow these steps to setup Devexchange on your local machine
    ```sh
    cd Devexchange
    ```
+4. Add a reference(remote) to the original repository.
 
-4. Install all dependencies by running
+   ```sh
+   git remote add upstream https://github.com/<your_github_username>/Dev-Exchange.git
+   ```
+
+5. Check the remotes for this repository.
+
+   ```sh
+   git remote -v
+   ```
+
+6. Always take a pull from the upstream repository to your master branch to keep it at par with the main project (updated repository).
+
+   ```sh
+   git pull upstream main
+   ```
+
+7. Install all dependencies by running
 
    ```sh
    npm install
    ```
 
-5. Create your branch
+8. Create your branch
 
    ```sh
    git checkout -b <your_branch_name>
    ```
 
-6. Run and view the application on localhost
+9. Run and view the application on localhost
 
    ```sh
     run dev
