@@ -19,7 +19,7 @@ import Tag from "@/database/tags.model";
 import Answer from "@/database/answer.model";
 import { BadgeCriteriaType } from "@/types";
 import { assignBadges } from "../utils";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
 export async function getUserById(params: any) {
   try {
@@ -420,8 +420,8 @@ export async function followUser(params: {
     console.log(UserToFollowId);
 
     
-    const currentUserIdObj =new mongoose.Types.ObjectId(currentUserId);
-    const userToFollowIdObj =new  mongoose.Types.ObjectId(UserToFollowId);
+    const currentUserIdObj =currentUserId
+    const userToFollowIdObj =UserToFollowId
 
     const user = await User.findById(currentUserIdObj);
     const followUser = await User.findById(userToFollowIdObj);
