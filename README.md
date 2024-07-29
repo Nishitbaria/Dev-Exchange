@@ -61,6 +61,12 @@ Follow these steps to set up the Dev Exchange project locally:
 ```
 docker pull nishitbaria/devexchange
 ```
+### Using kubernetes
+```bash
+1. kubectl apply -f deployment.yaml
+2. kubectl apply -f service.yaml
+
+```
 
 ### Prerequisites
 

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: your-docker-image:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_URL
+              value: "your-db-url"
+            - name: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+              value: "your-clerk-publishable-key"
+            - name: CLERK_SECRET_KEY
+              value: "your-clerk-secret-key"
+            - name: NEXT_PUBLIC_CLERK_SIGN_IN_URL
+              value: "/sign-in"
+            - name: NEXT_PUBLIC_CLERK_SIGN_UP_URL
+              value: "/sign-up"
+            - name: NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL
+              value: "/"
+            - name: NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL
+              value: "/"
+            - name: NEXT_PUBLIC_TINY_EDITOR_API_KEY
+              value: "your-tiny-editor-api-key"
+            - name: NEXT_CLERK_WEBHOOK_SECRET
+              value: "whsec_erJXNtiEmSyU6XyobojZnp7fA2otaDtD"
+            - name: MONGODB_URL
+              value: "your-mongodb-url"
+            - name: NEXT_PUBLIC_SERVER_URL
+              value: "http://localhost:3000/"
+            - name: OPENAI_API_KEY
+              value: "your-openai-api-key"
+            - name: NEXT_PUBLIC_GOOGLE_GIMINI_API_KEY
+              value: "your-google-gimini-api-key"
