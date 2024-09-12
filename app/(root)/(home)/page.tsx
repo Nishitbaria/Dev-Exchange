@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
-
+  console.log(userId);
   let result;
 
   if (searchParams?.filter === "recommended") {

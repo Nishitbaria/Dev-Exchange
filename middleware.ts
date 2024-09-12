@@ -1,21 +1,26 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-
-
-
-
-const isProtectedRoute = createRouteMatcher([
-  'question/:id',
-  '/tags',
-  '/tags/:tag',
-  '/profile/:id',
-  'community',
-]);
+const isRootRoute = createRouteMatcher(["/"]);
 
 export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect();
+  const { userId } = auth();
+
+  // For other protected routes, simply protect them without redirect
+  const isProtectedRoute = createRouteMatcher([
+    '/question/:id',
+    '/tags',
+    '/tags/:tag',
+    '/profile/:id',
+    'community',
+  ]);
+  if (isProtectedRoute(req)) {
+    if (!userId) {
+      auth().protect();
+    }
+  }
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
