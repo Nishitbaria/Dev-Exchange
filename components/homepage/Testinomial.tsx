@@ -9,15 +9,15 @@ const Testimonial = () => {
         <div className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden bg-white dark:bg-black py-16">
             <div className="mx-auto max-w-4xl p-4 text-center">
                 <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-5xl font-spaceGrotesk">
-                    Empowering Individuals
+                    Empowering Developers
                     <br />
                     <span className="text-blue-600 dark:text-[#0095f1]">
-                        and Businesses
+                        with Community Knowledge
                     </span>
                 </h1>
                 <p className="text-lg text-gray-600 dark:text-gray-400 md:text-xl font-inter">
-                    Discover why over 150,000 users choose our platform to streamline
-                    their workflow and enhance their digital presence.
+                    Discover why thousands of developers choose Dev-Exchange to ask questions,
+                    share knowledge, and collaborate on programming challenges.
                 </p>
             </div>
 
