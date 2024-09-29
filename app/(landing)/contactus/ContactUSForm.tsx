@@ -121,9 +121,9 @@ export default function ContactUsForm() {
                         </Avatar>
                     ))}
                 </div>
-                <h2 className="text-2xl font-bold mb-4 text-dark-100 dark:text-light-900">Every AI is used by thousands of users</h2>
+                <h2 className="text-2xl font-bold mb-4 text-dark-100 dark:text-light-900">Join our growing community of developers</h2>
                 <p className="text-light-500 dark:text-light-700">
-                    With lots of AI applications around, Everything AI stands out with its state of the art capabilities.
+                    DevExchange is a community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world.
                 </p>
             </div>
         </div>

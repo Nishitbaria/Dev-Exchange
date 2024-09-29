@@ -13,7 +13,9 @@ export default function HomePage() {
             <Navbar />
             <main className="flex-grow">
                 <Hero />
-                <FeaturesSectionDemo />
+                <div id="features">
+                    <FeaturesSectionDemo />
+                </div>
                 <Testimonial />
                 <FAQ />
             </main>

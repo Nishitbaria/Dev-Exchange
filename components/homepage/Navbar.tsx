@@ -3,11 +3,16 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun, Menu, X } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { Link as ScrollLink } from 'react-scroll'
+
 
 export default function Navbar() {
     const [darkMode, setDarkMode] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         if (darkMode) {
@@ -19,6 +24,14 @@ export default function Navbar() {
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode)
+    }
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen)
+    }
+
+    const handleLogin = () => {
+        router.push('/sign-in')
     }
 
     return (
@@ -40,13 +53,23 @@ export default function Navbar() {
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
                             <Link href="/" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link href="/about" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium">About</Link>
-                            <Link href="/services" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium">Services</Link>
-                            <Link href="/contact" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium">Contact</Link>
+                            <ScrollLink
+                                to="features"
+                                smooth={true}
+                                duration={500}
+                                className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                            >
+                                Features
+                            </ScrollLink>
+                            <Link href="/contactus" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 px-3 py-2 rounded-md text-sm font-medium">Contact</Link>
                         </div>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <Button variant="outline" className="text-dark-100 dark:text-light-900 border-dark-100 dark:border-light-900 hover:bg-primary-500 hover:text-light-900 dark:hover:bg-primary-100 dark:hover:text-dark-100">
+                        <Button
+                            variant="outline"
+                            className="text-dark-100 dark:text-light-900 border-dark-100 dark:border-light-900 hover:bg-primary-500 hover:text-light-900 dark:hover:bg-primary-100 dark:hover:text-dark-100"
+                            onClick={handleLogin}
+                        >
                             Login
                         </Button>
                         <Button
@@ -55,10 +78,36 @@ export default function Navbar() {
                             onClick={toggleDarkMode}
                             className="text-dark-100 dark:text-light-900 hover:bg-primary-500 hover:text-light-900 dark:hover:bg-primary-100 dark:hover:text-dark-100"
                         >
-                            {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                            {darkMode ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={toggleMenu}
+                            className="md:hidden text-dark-100 dark:text-light-900 hover:bg-primary-500 hover:text-light-900 dark:hover:bg-primary-100 dark:hover:text-dark-100"
+                        >
+                            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                         </Button>
                     </div>
                 </div>
+                {isMenuOpen && (
+                    <div className="md:hidden">
+                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            <Link href="/" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 block px-3 py-2 rounded-md text-base font-medium">Home</Link>
+                            <Link href="/" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 block px-3 py-2 rounded-md text-base font-medium">About</Link>
+                            <ScrollLink
+                                to="features"
+                                smooth={true}
+                                duration={500}
+                                className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Services
+                            </ScrollLink>
+                            <Link href="/contact" className="text-dark-100 dark:text-light-900 hover:text-primary-500 dark:hover:text-primary-100 block px-3 py-2 rounded-md text-base font-medium">Contact</Link>
+                        </div>
+                    </div>
+                )}
             </div>
         </nav>
     )
